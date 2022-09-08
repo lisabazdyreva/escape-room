@@ -1,11 +1,7 @@
 import * as S from '../quests-catalog/quests-catalog.styled';
 import { ReactComponent as IconPerson } from '../../../../assets/img/icon-person.svg';
 import { ReactComponent as IconPuzzle } from '../../../../assets/img/icon-puzzle.svg';
-import { IMock } from '../../../app/types';
-
-import {useAppDispatch} from '../../../../store/hooks';
-import {setActiveQuest} from '../../../../store/app-slicer';
-
+import { IMock } from '../../../../types/types';
 
 interface QuestItemProps {
   quest: IMock,
@@ -14,25 +10,17 @@ interface QuestItemProps {
 const QuestItem = ({quest}: QuestItemProps) => {
   const {id, title, previewImg, level, peopleCount} = quest;
 
-  const dispatch = useAppDispatch();
-
-  const mouseEnterItemHandler = () => {
-    dispatch(setActiveQuest(id));
-  }
-
-  const mouseLeaveItemHandler = () => {
-    dispatch(setActiveQuest(0));
-  }
+  const peopleCountText = `${peopleCount[0]}–${peopleCount[1]} чел`;
 
   return (
-    <S.QuestItem onMouseEnter={mouseEnterItemHandler} onMouseLeave={mouseLeaveItemHandler}>
+    <S.QuestItem>
       <S.QuestItemLink to={`/quest/${id}`}>
         <S.Quest>
           <S.QuestImage
             src={previewImg}
             width="344"
             height="232"
-            alt="квест Склеп"
+            alt={`квест ${title}`}
           />
 
           <S.QuestContent>
@@ -41,7 +29,7 @@ const QuestItem = ({quest}: QuestItemProps) => {
             <S.QuestFeatures>
               <S.QuestFeatureItem>
                 <IconPerson />
-                {peopleCount[0]}–{peopleCount[1]} чел
+                {peopleCountText}
               </S.QuestFeatureItem>
               <S.QuestFeatureItem>
                 <IconPuzzle />

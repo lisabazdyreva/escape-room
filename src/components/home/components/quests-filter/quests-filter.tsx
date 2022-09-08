@@ -7,8 +7,8 @@ import { ReactComponent as IconMystic } from '../../../../assets/img/icon-mystic
 import { ReactComponent as IconDetective } from '../../../../assets/img/icon-detective.svg';
 import { ReactComponent as IconScifi } from '../../../../assets/img/icon-scifi.svg';
 
-import { useAppDispatch } from '../../../../store/hooks';
-import { setActiveFilter} from '../../../../store/app-slicer';
+import { useDispatch } from 'react-redux';
+import { setActiveFilter } from '../../../../store/actions/actions';
 
 
 const FilterValues = {
@@ -41,8 +41,7 @@ const FilterValues = {
 const filters = Object.entries(FilterValues);
 
 const QuestsFilter = () => {
-  // const activeFilter = useAppSelector((state) => state.activeFilter);
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch();
 
   const clickHandler = (val: string) => {
     dispatch(setActiveFilter(val));

@@ -1,4 +1,4 @@
-import { IMock } from './types';
+import { IMock } from '../types/types';
 
 export  const getValue = <T>(t: string, arrE: string[], arrR: string[]): T | string =>  {
   if (t === 'type') {

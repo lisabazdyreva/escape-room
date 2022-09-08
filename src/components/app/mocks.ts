@@ -1,4 +1,4 @@
-import { IMock } from './types';
+import { IMock } from '../../types/types';
 
 export const Mocks: IMock[] = [
   {

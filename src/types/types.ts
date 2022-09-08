@@ -12,7 +12,7 @@ export enum Levels {
   hard = 'сложный',
 }
 
-export type Durations = 60 | 90 | 120;
+export type Durations = 0 | 60 | 90 | 120;
 
 export interface IMock {
   id: number,

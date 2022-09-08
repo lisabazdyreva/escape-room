@@ -3,7 +3,22 @@ import { render } from 'react-dom';
 import App from './components/app/app';
 
 import { Provider } from 'react-redux';
-import {store} from './store/store';
+
+import { fetchQuests } from './store/actions/api-actions';
+import { configureStore } from '@reduxjs/toolkit';
+import { rootReducer } from './store/root-reducer';
+
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: getDefaultMiddleware => getDefaultMiddleware({
+    thunk: {
+      extraArgument: 'api',
+    }
+  })
+});
+
+store.dispatch(fetchQuests());
+
 
 
 render(

@@ -2,11 +2,13 @@ import * as S from './quests-catalog.styled';
 import QuestsFilter from '../quests-filter/quests-filter';
 import QuestItem from '../quest-item/quest-item';
 
-import {useAppSelector} from '../../../../store/hooks';
+
+import { useSelector } from 'react-redux';
+import { getQuests } from '../../../../store/app-data/selectors';
 
 
 const QuestsCatalog = () => {
-  const quests = useAppSelector((state) => state.filteredQuests);
+  const quests = useSelector(getQuests);
 
   return (
     <>
