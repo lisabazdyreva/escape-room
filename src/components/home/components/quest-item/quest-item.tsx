@@ -3,6 +3,10 @@ import { ReactComponent as IconPerson } from '../../../../assets/img/icon-person
 import { ReactComponent as IconPuzzle } from '../../../../assets/img/icon-puzzle.svg';
 import { IMock } from '../../../app/types';
 
+import {useAppDispatch} from '../../../../store/hooks';
+import {setActiveQuest} from '../../../../store/app-slicer';
+
+
 interface QuestItemProps {
   quest: IMock,
 }
@@ -10,8 +14,18 @@ interface QuestItemProps {
 const QuestItem = ({quest}: QuestItemProps) => {
   const {id, title, previewImg, level, peopleCount} = quest;
 
+  const dispatch = useAppDispatch();
+
+  const mouseEnterItemHandler = () => {
+    dispatch(setActiveQuest(id));
+  }
+
+  const mouseLeaveItemHandler = () => {
+    dispatch(setActiveQuest(0));
+  }
+
   return (
-    <S.QuestItem>
+    <S.QuestItem onMouseEnter={mouseEnterItemHandler} onMouseLeave={mouseLeaveItemHandler}>
       <S.QuestItemLink to={`/quest/${id}`}>
         <S.Quest>
           <S.QuestImage

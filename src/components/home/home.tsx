@@ -7,7 +7,7 @@ import {
 import { QuestsCatalog } from './components/components';
 import * as S from './home.styled';
 
-import {Mocks} from '../app/mocks';
+
 
 const HomePage = () => (
   <MainLayout>
@@ -16,9 +16,7 @@ const HomePage = () => (
         <PageTitle>Выберите тематику</PageTitle>
         <PageSubtext>квесты в Санкт-Петербурге</PageSubtext>
       </PageHeading>
-      <QuestsCatalog
-        quests={Mocks}
-      />
+      <QuestsCatalog />
     </S.Main>
   </MainLayout>
 );

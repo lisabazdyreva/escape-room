@@ -7,9 +7,12 @@ import { ReactComponent as IconMystic } from '../../../../assets/img/icon-mystic
 import { ReactComponent as IconDetective } from '../../../../assets/img/icon-detective.svg';
 import { ReactComponent as IconScifi } from '../../../../assets/img/icon-scifi.svg';
 
+import { useAppDispatch } from '../../../../store/hooks';
+import { setActiveFilter} from '../../../../store/app-slicer';
+
 
 const FilterValues = {
-  allQuests: {
+  'allQuests': {
     name: 'Все квесты',
     img: IconAllQuests,
   },
@@ -38,9 +41,11 @@ const FilterValues = {
 const filters = Object.entries(FilterValues);
 
 const QuestsFilter = () => {
+  // const activeFilter = useAppSelector((state) => state.activeFilter);
+  const dispatch = useAppDispatch();
 
   const clickHandler = (val: string) => {
-    console.log(val);
+    dispatch(setActiveFilter(val));
   }
 
   return (
@@ -48,8 +53,9 @@ const QuestsFilter = () => {
       {filters.map(([filterName, filterValue]) => {
         const DynamicImg = filterValue.img;
 
+
         return ( <S.TabItem key={filterName} onClick={() => clickHandler(filterName)}>
-          <S.TabBtn>
+          <S.TabBtn > { /*isActive={activeFilter === filterName} */}
             <DynamicImg />
             <S.TabTitle>{filterValue.name}</S.TabTitle>
           </S.TabBtn>
