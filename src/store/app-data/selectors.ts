@@ -1,12 +1,12 @@
 import { NameSpace } from '../root-reducer';
-import { IMock } from '../../types/types';
+import { IQuest } from '../../types/types';
 import { State } from '../../types/state';
 
 
-export const getQuests = (state: State): IMock[] =>   {
+export const getQuests = (state: State): IQuest[] =>   {
   return state[NameSpace.data].quests;
 }
 
-export const getSelectedQuest = (state: State): IMock => {
+export const getSelectedQuest = (state: State): IQuest => {
   return state[NameSpace.data].selectedQuest;
 }

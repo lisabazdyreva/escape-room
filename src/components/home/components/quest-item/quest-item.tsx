@@ -1,10 +1,10 @@
 import * as S from '../quests-catalog/quests-catalog.styled';
 import { ReactComponent as IconPerson } from '../../../../assets/img/icon-person.svg';
 import { ReactComponent as IconPuzzle } from '../../../../assets/img/icon-puzzle.svg';
-import { IMock } from '../../../../types/types';
+import { IQuest } from '../../../../types/types';
 
 interface QuestItemProps {
-  quest: IMock,
+  quest: IQuest,
 }
 
 const QuestItem = ({quest}: QuestItemProps) => {

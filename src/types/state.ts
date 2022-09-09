@@ -1,13 +1,14 @@
-import { IMock } from './types';
+import { IQuest } from './types';
 import { RootState } from '../store/root-reducer';
 
 export type AppData = {
-  quests: IMock[],
-  selectedQuest: IMock,
+  quests: IQuest[],
+  selectedQuest: IQuest,
 }
 
 export type AppProcess = {
-  filteredQuests: [],
+  initialFilteredQuests:  IQuest[] | [],
+  filteredQuests: IQuest[],
   activeFilter: string,
 }
 

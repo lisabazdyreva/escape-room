@@ -8,8 +8,15 @@ import { ReactComponent as IconDetective } from '../../../../assets/img/icon-det
 import { ReactComponent as IconScifi } from '../../../../assets/img/icon-scifi.svg';
 
 import { useDispatch } from 'react-redux';
-import { setActiveFilter } from '../../../../store/actions/actions';
+import { getFilteredQuests, setActiveFilter } from '../../../../store/actions/actions';
 
+const FiltersToType = {
+  adventures: 'adventures',
+  horrors: 'horror',
+  mystic: 'mystic',
+  detective: 'detective',
+  scifi: 'sci-fi',
+} as const;
 
 const FilterValues = {
   'allQuests': {
@@ -45,6 +52,10 @@ const QuestsFilter = () => {
 
   const clickHandler = (val: string) => {
     dispatch(setActiveFilter(val));
+
+    const findTypeName = Object.entries(FiltersToType).find(([key]) => key === val);
+    const typeName = findTypeName ? findTypeName[1] : 'allQuests';
+    dispatch(getFilteredQuests(typeName));
   }
 
   return (

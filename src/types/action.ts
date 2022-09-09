@@ -7,6 +7,7 @@ export enum ActionType {
   GetQuests = 'data/getQuests',
   GetSelectedQuest = 'data/getSelectedQuest',
   GetFilteredQuests = 'app/getFilteredQuests',
+  SetInitialFilteredQuests = 'app/setInitialFilteredQuests',
   SetActiveFilter = 'app/setActiveFilter'
 }
 export type ThunkActionResult<P = Promise<void>> = ThunkAction<P, State, unknown, Action>;

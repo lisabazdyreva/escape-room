@@ -2,9 +2,9 @@ import { createReducer } from '@reduxjs/toolkit';
 
 import { getQuests, getSelectedQuest } from '../actions/actions';
 import { AppData } from '../../types/state';
-import { IMock } from '../../types/types';
+import { IQuest } from '../../types/types';
 
-const initialQuest: IMock = {
+const initialQuest: IQuest = {
   id: 0,
   title: '',
   description: '',
