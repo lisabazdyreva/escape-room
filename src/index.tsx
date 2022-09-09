@@ -12,14 +12,12 @@ export const store = configureStore({
   reducer: rootReducer,
   middleware: getDefaultMiddleware => getDefaultMiddleware({
     thunk: {
-      extraArgument: 'api',
+      extraArgument: null,
     }
   })
 });
 
 store.dispatch(fetchQuests());
-
-
 
 render(
   <StrictMode>

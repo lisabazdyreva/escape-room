@@ -37,6 +37,10 @@ const DetailedQuest = () => {
     setIsBookingModalOpened(true);
   };
 
+  const onCloseBtnClick = () => {
+    setIsBookingModalOpened(false);
+  }
+
   return (
     <MainLayout>
       <S.Main>
@@ -78,7 +82,7 @@ const DetailedQuest = () => {
           </S.PageDescription>
         </S.PageContentWrapper>
 
-        {isBookingModalOpened && <BookingModal />}
+        {isBookingModalOpened && <BookingModal onCloseModal={onCloseBtnClick}/>}
       </S.Main>
     </MainLayout>
   );
