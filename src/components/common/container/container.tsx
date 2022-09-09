@@ -1,10 +1,7 @@
 import * as S from './container.styled';
+import { ICommonProps } from '../types';
 
-interface IContainerProps {
-  children: any,
-}
-
-const Container = ({ children, ...props }: IContainerProps) => (
+const Container = ({ children, ...props }: ICommonProps) => (
   <S.Container {...props}>{children}</S.Container>
 );
 

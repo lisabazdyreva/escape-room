@@ -7,8 +7,9 @@ import { ReactComponent as IconMystic } from '../../../../assets/img/icon-mystic
 import { ReactComponent as IconDetective } from '../../../../assets/img/icon-detective.svg';
 import { ReactComponent as IconScifi } from '../../../../assets/img/icon-scifi.svg';
 
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getFilteredQuests, setActiveFilter } from '../../../../store/actions/actions';
+import { setActiveFilter as activeFilterSelector} from '../../../../store/app-process/selectors';
 
 const FiltersToType = {
   adventures: 'adventures',
@@ -58,6 +59,8 @@ const QuestsFilter = () => {
     dispatch(getFilteredQuests(typeName));
   }
 
+  const activeFilter = useSelector(activeFilterSelector);
+
   return (
     <S.Tabs>
       {filters.map(([filterName, filterValue]) => {
@@ -65,7 +68,7 @@ const QuestsFilter = () => {
 
 
         return ( <S.TabItem key={filterName} onClick={() => clickHandler(filterName)}>
-          <S.TabBtn > { /*isActive={activeFilter === filterName} */}
+          <S.TabBtn isActive={ activeFilter === filterName }>
             <DynamicImg />
             <S.TabTitle>{filterValue.name}</S.TabTitle>
           </S.TabBtn>

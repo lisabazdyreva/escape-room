@@ -1,10 +1,7 @@
 import * as S from './page-heading.styled';
+import { ICommonProps } from '../types';
 
-interface IPageHeadingProps {
-  children: any,
-}
-
-const PageHeading = ({ children, ...props }: IPageHeadingProps) => (
+const PageHeading = ({ children, ...props }: ICommonProps) => (
   <S.PageHeading {...props}>{children}</S.PageHeading>
 );
 

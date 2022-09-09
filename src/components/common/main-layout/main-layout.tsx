@@ -1,11 +1,7 @@
 import { Header, Footer } from 'components/common/common';
+import { ICommonProps } from '../types';
 
-
-interface IMainLayoutProps {
-  children: any,
-}
-
-const MainLayout = ({ children }: IMainLayoutProps) => (
+const MainLayout = ({ children }: ICommonProps) => (
   <>
     <Header />
     {children}

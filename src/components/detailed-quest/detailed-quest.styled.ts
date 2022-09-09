@@ -107,7 +107,11 @@ const QuestDescription = styled.p`
   letter-spacing: 0.013em;
 `;
 
-const QuestBookingBtn = styled(Button).attrs({ type: 'button' })`
+interface IQuestBookingBtn {
+  onClick: () => void;
+}
+
+const QuestBookingBtn = styled(Button).attrs({ type: 'button' })<IQuestBookingBtn>`
   margin-left: 2px;
 `;
 

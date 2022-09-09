@@ -1,10 +1,7 @@
 import * as S from './page-title.styled';
+import { ICommonProps } from '../types';
 
-interface IPageTitleProps {
-  children: any,
-}
-
-const PageTitle = ({ children, ...props } : IPageTitleProps) => (
+const PageTitle = ({ children, ...props } :ICommonProps) => (
   <S.PageTitle {...props}>{children}</S.PageTitle>
 );
 

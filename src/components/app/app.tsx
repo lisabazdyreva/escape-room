@@ -15,7 +15,6 @@ import * as S from './app.styled';
 
 
 const App = () => {
-
   return (
     <ThemeProvider theme={appTheme}>
       <S.GlobalStyle />

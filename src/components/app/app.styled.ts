@@ -1,14 +1,15 @@
 import { createGlobalStyle } from 'styled-components';
 
+
 import RalewayRegularWoff2 from '../../assets/fonts/raleway-regular.woff2';
 import RalewayMediumWoff2 from '../../assets/fonts/raleway-medium.woff2';
 import RalewaySemiBoldWoff2 from '../../assets/fonts/raleway-semibold.woff2';
 import RalewayBoldWoff2 from '../../assets/fonts/raleway-bold.woff2';
 import RalewayExtraBoldWoff2 from '../../assets/fonts/raleway-extrabold.woff2';
 import RalewayBlackWoff2 from '../../assets/fonts/raleway-black.woff2';
+import { ThemeType } from './common';
 
-
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle<{theme: ThemeType}>`
   @font-face {
     font-family: 'Raleway';
     font-style: normal;
@@ -160,7 +161,7 @@ const GlobalStyle = createGlobalStyle`
   /* ios button \ inputs reset */
   select,
   textarea,
-  input:matches([type='email'], [type='number'], [type='password'], [type='search'], [type='tel'], [type='text'], [type='url']) {
+  input:is([type='email'], [type='number'], [type='password'], [type='search'], [type='tel'], [type='text'], [type='url']) {
     appearance: none;
   }
 
