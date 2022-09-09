@@ -1,5 +1,5 @@
 import { ThunkActionResult } from '../../types/action';
-import { getQuests, getSelectedQuest } from './actions';
+import { getQuests, getSelectedQuest, setInitialFilteredQuests } from './actions';
 
 const URI = 'http://localhost:3001/quests';
 const fetchQuests = function() :ThunkActionResult {
@@ -14,6 +14,7 @@ const fetchQuests = function() :ThunkActionResult {
        })
        .then((result) => {
          dispatch(getQuests(result));
+         dispatch(setInitialFilteredQuests(result));
        })
       .catch((err) => console.log(err));
   }

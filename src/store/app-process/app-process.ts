@@ -1,27 +1,28 @@
 import { createReducer } from '@reduxjs/toolkit';
 
-import { getFilteredQuests, setActiveFilter } from '../actions/actions';
+import { getFilteredQuests, setActiveFilter, setInitialFilteredQuests } from '../actions/actions';
 import { AppProcess } from '../../types/state';
+import { IQuest } from '../../types/types';
 
 
 const initialState: AppProcess = { //import { AppProcess } from '../../types/state';
+  initialFilteredQuests: [],
   filteredQuests: [],
   activeFilter: 'allQuests',
 }
 
 export const appProcess = createReducer(initialState, (builder) => {
   builder
-    .addCase(getFilteredQuests, (state) => {
-      state.filteredQuests = [];
-      //state.quests.filter((quest: IMock) => quest.type === action.payload)
+    .addCase(setInitialFilteredQuests, (state, action) => {
+      state.initialFilteredQuests = action.payload;
+      state.filteredQuests = state.initialFilteredQuests;
     })
     .addCase(setActiveFilter, (state, action) => {
       state.activeFilter = action.payload;
-
-      // if (state.activeFilter === 'allQuests') {
-      //   state.filteredQuests = []; // state.quests
-      // } else {
-      //   state.filteredQuests = []; //state.quests.filter((quest: IMock) => quest.type === state.activeFilter);
-      // }
+    })
+    .addCase(getFilteredQuests, (state, action) => {
+      state.filteredQuests = action.payload === 'allQuests'
+        ? state.initialFilteredQuests
+        : state.initialFilteredQuests.filter((quest: IQuest) => quest.type === action.payload);
     })
 });

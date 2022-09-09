@@ -14,7 +14,7 @@ export enum Levels {
 
 export type Durations = 0 | 60 | 90 | 120;
 
-export interface IMock {
+export interface IQuest {
   id: number,
   title: string,
   description: string,
@@ -25,5 +25,3 @@ export interface IMock {
   peopleCount: number[],
   duration: Durations,
 }
-
-
