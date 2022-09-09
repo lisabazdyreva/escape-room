@@ -37,3 +37,18 @@ export const setActiveFilter = createAction(
     payload: type,
   })
 )
+
+export const setFetchStatusQuests = createAction(
+  ActionType.SetFetchStatusQuests,
+  (status: 'trying' | 'success' | 'error') => ({
+    payload: status,
+  })
+)
+
+
+export const setFetchStatusDetailedQuest = createAction(
+  ActionType.SetFetchStatusDetailedQuest,
+  (status: 'trying' | 'success' | 'error') => ({
+    payload: status,
+  })
+)

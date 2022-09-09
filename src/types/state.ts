@@ -12,4 +12,9 @@ export type AppProcess = {
   activeFilter: string,
 }
 
+export type AppStatus = {
+  fetchStatusQuests: 'trying' | 'success' | 'error',
+  fetchStatusDetailedQuest: 'trying' | 'success' | 'error',
+}
+
 export type State = RootState;

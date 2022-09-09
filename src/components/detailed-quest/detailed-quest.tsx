@@ -13,10 +13,16 @@ import { fetchQuest } from '../../store/actions/api-actions';
 
 import { getSelectedQuest } from '../../store/app-data/selectors';
 import { AppDispatch } from '../../store/store';
+import { setFetchStatusDetailedQuest } from '../../store/app-status/selectors';
+import Loading from '../loading/loading';
 
 
 
 const DetailedQuest = () => {
+  const fetchStatus = useSelector(setFetchStatusDetailedQuest);
+  const isTrying = fetchStatus === 'trying';
+  const isSuccess = fetchStatus === 'success';
+
   const params: {id: string} = useParams();
   const {id} = params;
 
@@ -43,47 +49,55 @@ const DetailedQuest = () => {
 
   return (
     <MainLayout>
-      <S.Main>
-        <S.PageImage
-          src={`../${coverImg}`}
-          alt={`Квест ${title}`}
-          width="1366"
-          height="768"
-        />
-        <S.PageContentWrapper>
-          <S.PageHeading>
-            <S.PageTitle>{title}</S.PageTitle>
-            <S.PageSubtitle>{type}</S.PageSubtitle>
-          </S.PageHeading>
+      { isTrying
+        &&
+        <Loading />
+      }
+      { isSuccess
+        &&
+        <S.Main>
+          <S.PageImage
+            src={`../${coverImg}`}
+            alt={`Квест ${title}`}
+            width="1366"
+            height="768"
+          />
+          <S.PageContentWrapper>
+            <S.PageHeading>
+              <S.PageTitle>{title}</S.PageTitle>
+              <S.PageSubtitle>{type}</S.PageSubtitle>
+            </S.PageHeading>
 
-          <S.PageDescription>
-            <S.Features>
-              <S.FeaturesItem>
-                <IconClock width="20" height="20" />
-                <S.FeatureTitle>{duration} мин</S.FeatureTitle>
-              </S.FeaturesItem>
-              <S.FeaturesItem>
-                <IconPerson width="19" height="24" />
-                <S.FeatureTitle>{peopleCount[0]}–{peopleCount[1]} чел</S.FeatureTitle>
-              </S.FeaturesItem>
-              <S.FeaturesItem>
-                <IconPuzzle width="24" height="24" />
-                <S.FeatureTitle>{level}</S.FeatureTitle>
-              </S.FeaturesItem>
-            </S.Features>
+            <S.PageDescription>
+              <S.Features>
+                <S.FeaturesItem>
+                  <IconClock width="20" height="20" />
+                  <S.FeatureTitle>{duration} мин</S.FeatureTitle>
+                </S.FeaturesItem>
+                <S.FeaturesItem>
+                  <IconPerson width="19" height="24" />
+                  <S.FeatureTitle>{peopleCount[0]}–{peopleCount[1]} чел</S.FeatureTitle>
+                </S.FeaturesItem>
+                <S.FeaturesItem>
+                  <IconPuzzle width="24" height="24" />
+                  <S.FeatureTitle>{level}</S.FeatureTitle>
+                </S.FeaturesItem>
+              </S.Features>
 
-            <S.QuestDescription>
-              {description}
-            </S.QuestDescription>
+              <S.QuestDescription>
+                {description}
+              </S.QuestDescription>
 
-            <S.QuestBookingBtn onClick={onBookingBtnClick}>
-              Забронировать
-            </S.QuestBookingBtn>
-          </S.PageDescription>
-        </S.PageContentWrapper>
+              <S.QuestBookingBtn onClick={onBookingBtnClick}>
+                Забронировать
+              </S.QuestBookingBtn>
+            </S.PageDescription>
+          </S.PageContentWrapper>
 
-        {isBookingModalOpened && <BookingModal onCloseModal={onCloseBtnClick}/>}
-      </S.Main>
+          {isBookingModalOpened && <BookingModal onCloseModal={onCloseBtnClick}/>}
+        </S.Main>
+      }
+
     </MainLayout>
   );
 };

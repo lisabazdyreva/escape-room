@@ -1,5 +1,11 @@
 import { ThunkActionResult } from '../../types/action';
-import { getQuests, getSelectedQuest, setInitialFilteredQuests } from './actions';
+import {
+  getQuests,
+  getSelectedQuest,
+  setFetchStatusDetailedQuest,
+  setFetchStatusQuests,
+  setInitialFilteredQuests,
+} from './actions';
 
 const URI = 'http://localhost:3001/quests';
 const fetchQuests = function() :ThunkActionResult {
@@ -16,7 +22,10 @@ const fetchQuests = function() :ThunkActionResult {
          dispatch(getQuests(result));
          dispatch(setInitialFilteredQuests(result));
        })
-      .catch((err) => console.log(err));
+       .then(() => {
+         dispatch(setFetchStatusQuests('success'));
+       })
+      .catch(() => dispatch(setFetchStatusQuests('error')));
   }
 }
 
@@ -33,7 +42,10 @@ const fetchQuest = function( id: number) :ThunkActionResult {
       .then((result) => {
         dispatch(getSelectedQuest(result));
       })
-      .catch((err) => console.log(err));
+      .then(() => {
+        dispatch(setFetchStatusDetailedQuest('success'));
+      })
+      .catch(() => dispatch(setFetchStatusDetailedQuest('error')));
   }
 }
 
