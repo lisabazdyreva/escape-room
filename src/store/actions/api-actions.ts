@@ -49,6 +49,27 @@ const fetchQuest = function( id: number) :ThunkActionResult {
   }
 }
 
-export {fetchQuests, fetchQuest};
+const postOrder = function(data: {name: string, peopleCount: number, phone: string, isLegal: boolean}) :ThunkActionResult {
+  return async (dispatch, _getState): Promise<void> => {
+    await fetch('http://localhost:3001/orders', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data === 201) {
+          console.log('success');
+        } else {
+          throw new Error('err');
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+}
+
+export {fetchQuests, fetchQuest, postOrder};
 
 
