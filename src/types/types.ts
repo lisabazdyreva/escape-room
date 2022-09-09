@@ -1,4 +1,4 @@
-export enum Types {
+export enum TypesDictionary {
   adventure = 'Приключения',
   horror = 'Ужасы',
   mystic = 'Мистика',
@@ -6,7 +6,7 @@ export enum Types {
   scifi = 'Sci-fi',
 }
 
-export enum Levels {
+export enum LevelsDictionary {
   easy = 'простой',
   middle = 'средний',
   hard = 'сложный',
@@ -20,8 +20,8 @@ export interface IQuest {
   description: string,
   previewImg: string,
   coverImg: string,
-  type: Types | string,
-  level: Levels | string,
+  type: TypesDictionary | string,
+  level: LevelsDictionary | string,
   peopleCount: number[],
   duration: Durations,
 }

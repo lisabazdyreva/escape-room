@@ -16,7 +16,20 @@ import { AppDispatch } from '../../store/store';
 import { setFetchStatusDetailedQuest } from '../../store/app-status/selectors';
 import Loading from '../loading/loading';
 
+import { TypesDictionary, LevelsDictionary } from '../../types/types';
 
+const types = Object.entries(TypesDictionary);
+const levels = Object.entries(LevelsDictionary);
+
+const getType = (type: string) => {
+  const typePrep = types.find(([engTypes, rusTypes]) => engTypes === type);
+  return typePrep ? typePrep[1] : '';
+}
+
+const getLevel = (level: string) => {
+  const levelPrep = levels.find(([engLevel, rusLevel]) => engLevel === level);
+  return levelPrep ? levelPrep[1] : '';
+}
 
 const DetailedQuest = () => {
   const fetchStatus = useSelector(setFetchStatusDetailedQuest);
@@ -65,7 +78,7 @@ const DetailedQuest = () => {
           <S.PageContentWrapper>
             <S.PageHeading>
               <S.PageTitle>{title}</S.PageTitle>
-              <S.PageSubtitle>{type}</S.PageSubtitle>
+              <S.PageSubtitle>{getType(type)}</S.PageSubtitle>
             </S.PageHeading>
 
             <S.PageDescription>
@@ -80,7 +93,7 @@ const DetailedQuest = () => {
                 </S.FeaturesItem>
                 <S.FeaturesItem>
                   <IconPuzzle width="24" height="24" />
-                  <S.FeatureTitle>{level}</S.FeatureTitle>
+                  <S.FeatureTitle>{getLevel(level)}</S.FeatureTitle>
                 </S.FeaturesItem>
               </S.Features>
 
