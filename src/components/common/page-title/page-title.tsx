@@ -1,6 +1,10 @@
 import * as S from './page-title.styled';
 
-const PageTitle = ({ children, ...props }) => (
+interface IPageTitleProps {
+  children: any,
+}
+
+const PageTitle = ({ children, ...props } : IPageTitleProps) => (
   <S.PageTitle {...props}>{children}</S.PageTitle>
 );
 

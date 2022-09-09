@@ -1,6 +1,10 @@
 import * as S from './page-subtext.styled';
 
-const PageSubtext = ({ children, ...props }) => (
+interface IPageSubtextProps {
+  children: any,
+}
+
+const PageSubtext = ({ children, ...props } : IPageSubtextProps) => (
   <S.PageSubtext {...props}>{children}</S.PageSubtext>
 );
 

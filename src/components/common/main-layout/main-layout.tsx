@@ -1,6 +1,11 @@
 import { Header, Footer } from 'components/common/common';
 
-const MainLayout = ({ children }) => (
+
+interface IMainLayoutProps {
+  children: any,
+}
+
+const MainLayout = ({ children }: IMainLayoutProps) => (
   <>
     <Header />
     {children}
