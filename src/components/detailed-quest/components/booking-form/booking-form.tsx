@@ -1,84 +1,77 @@
 import * as S from '../booking-modal/booking-modal.styled';
-import { FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import BookingField from '../booking-field/booking-field';
 import { useDispatch } from 'react-redux';
 import { postOrder } from '../../../../store/actions/api-actions';
 import { AppDispatch } from '../../../../store/store';
+import { checkNameValidity, checkPhoneValidity, checkPeopleCountValidity } from '../../../../utils/validation-utils';
 
-enum BookingFields {
-  NAME = 'name',
-  PHONE = 'phone',
-  PEOPLE = 'people',
+import { bookingFields } from '../../../../const';
+import {BookingFields} from '../../../../types/types';
+import { setPostOrderStatus } from '../../../../store/actions/actions';
+
+
+interface IBookingFormProps {
+  closeHandler: () => void,
 }
 
-const bookingFields = {
-  NAME: {
-    title: BookingFields.NAME,
-    type: 'text',
-    translationLabel: 'Ваше Имя',
-    translationPlaceholder: 'Имя',
-  },
-  PHONE: {
-    title: BookingFields.PHONE,
-    type: 'tel',
-    translationLabel: 'Контактный телефон',
-    translationPlaceholder: 'Телефон',
-  },
-  PEOPLE: {
-    title: BookingFields.PEOPLE,
-    type: 'number',
-    translationLabel: 'Количество участников',
-    translationPlaceholder: 'Количество участников',
-  },
-};
-
-const BookingForm = () => {
+const BookingForm = ({closeHandler}: IBookingFormProps) => {
   const dispatch = useDispatch<AppDispatch>();
-  const [name, setName] = useState<string | number>(''); // fix
-  const [tel, setTel] = useState<string | number>('');
-  const [peopleCount, setPeopleCount] = useState<number>(1);
+
+  const [name, setName] = useState('');
+  const [tel, setTel] = useState('');
+  const [peopleCount, setPeopleCount] = useState('');
+
 
   const onFormSubmit = (evt: FormEvent) => {
+
     evt.preventDefault();
-    const prepName = String(name);
-    const prepPeopleCount = Number(peopleCount);
-    const prepPhone = String(tel);
     const isLegal = true;
 
     dispatch(postOrder({
-      name: prepName,
-      peopleCount: prepPeopleCount,
-      phone: prepPhone,
+      name,
+      peopleCount: Number(peopleCount) || 1,
+      phone: tel,
       isLegal,
     }))
-    // TODO make validation
-    setName('');
-    setTel('');
-    setPeopleCount(1);
+      .then(() => {
+        setTimeout(() => {
+          closeHandler();
+          dispatch(setPostOrderStatus('default'));
+        }, 1500);
+      });
+
   }
 
-  const onChangeHandler = (type: string, value: string | number) => {
+  const onChangeHandler = (type: string, evt: ChangeEvent<HTMLInputElement>): void => {
+    const value = evt.target.value;
+
     switch (type) {
-      case 'name':
+      case BookingFields.NAME:
         setName(value);
+        checkNameValidity(value, evt);
         break;
-      case 'phone':
+      case BookingFields.PHONE:
         setTel(value);
+        checkPhoneValidity(value, evt);
         break;
-      case 'people':
-        setPeopleCount(Number(value));
+      case BookingFields.PEOPLE:
+        setPeopleCount(value);
+        checkPeopleCountValidity(value, evt);
         break;
     }
   }
 
-  const getValue = (type: string) => {
+  const getValueState = (type: string) => {
     switch (type) {
-      case 'name':
+      case BookingFields.NAME:
         return name;
-      case 'phone':
+      case BookingFields.PHONE:
         return tel;
-      case 'people':
+      case BookingFields.PEOPLE:
         return peopleCount;
+      default:
+        return '';
     }
   }
 
@@ -93,7 +86,10 @@ const BookingForm = () => {
     >
       {
         fields.map(([name, information], id) => {
-          return <BookingField key={`${name} ${id}`} textInformation={information} handler={onChangeHandler} getValue={getValue} />
+          const value = getValueState(information.title);
+          const key = `${name} ${id}`;
+
+          return <BookingField key={key} textInformation={information} handler={onChangeHandler} value={value} />
         })
       }
 

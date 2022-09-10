@@ -1,5 +1,6 @@
 export { Link, Switch, Route, BrowserRouter } from 'react-router-dom';
 export { default as Button } from './button/button';
+export { default as Spinner } from './spinner/spinner';
 export { default as Container } from './container/container';
 export { default as Footer } from './footer/footer';
 export { default as Header } from './header/header';

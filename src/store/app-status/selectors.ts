@@ -8,3 +8,8 @@ export const setFetchStatusQuests = (state: State): 'trying' | 'success' | 'erro
 export const setFetchStatusDetailedQuest = (state: State): 'trying' | 'success' | 'error' => {
   return state[NameSpace.status].fetchStatusDetailedQuest;
 }
+
+
+export const setPostOrderStatus = (state: State): 'trying' | 'success' | 'error' | 'default' => {
+  return state[NameSpace.status].postOrderStatus;
+}

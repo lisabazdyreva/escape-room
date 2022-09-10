@@ -52,3 +52,10 @@ export const setFetchStatusDetailedQuest = createAction(
     payload: status,
   })
 )
+
+export const setPostOrderStatus = createAction(
+  ActionType.SetPostOrderStatus,
+  (status: 'trying' | 'success' | 'error' | 'default') => ({
+    payload: status,
+  })
+)

@@ -8,7 +8,7 @@ export enum TypesDictionary {
 
 export enum LevelsDictionary {
   easy = 'простой',
-  middle = 'средний',
+  medium = 'средний',
   hard = 'сложный',
 }
 
@@ -24,4 +24,10 @@ export interface IQuest {
   level: LevelsDictionary | string,
   peopleCount: number[],
   duration: Durations,
+}
+
+export enum BookingFields {
+  NAME = 'name',
+  PHONE = 'phone',
+  PEOPLE = 'people',
 }

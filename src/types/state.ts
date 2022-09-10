@@ -15,6 +15,7 @@ export type AppProcess = {
 export type AppStatus = {
   fetchStatusQuests: 'trying' | 'success' | 'error',
   fetchStatusDetailedQuest: 'trying' | 'success' | 'error',
+  postOrderStatus: 'trying' | 'success' | 'error' | 'default',
 }
 
 export type State = RootState;

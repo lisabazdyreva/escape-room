@@ -6,5 +6,6 @@ export interface ICommonProps {
 
 export interface ILinkProps {
   $isActiveLink?: boolean,
+  $isDisabled: boolean,
 }
 

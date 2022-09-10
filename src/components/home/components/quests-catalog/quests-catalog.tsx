@@ -17,6 +17,7 @@ const QuestsCatalog: React.FC = () => {
 
   const isTrying = fetchStatusQuests === 'trying';
   const isSuccess = fetchStatusQuests === 'success';
+  const isError = fetchStatusQuests === 'error';
 
   return (
     <>
@@ -29,6 +30,8 @@ const QuestsCatalog: React.FC = () => {
           { filteredQuests.map((quest) => <QuestItem key={quest.id} quest={quest} />) }
         </S.QuestsList>
       }
+
+      { isError && <div>Произошла ошибка, попробуйте позже.</div> }
     </>
   );
 }

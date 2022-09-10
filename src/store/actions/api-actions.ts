@@ -4,18 +4,19 @@ import {
   getSelectedQuest,
   setFetchStatusDetailedQuest,
   setFetchStatusQuests,
-  setInitialFilteredQuests,
+  setInitialFilteredQuests, setPostOrderStatus,
 } from './actions';
 
-const URI = 'http://localhost:3001/quests';
+import { URI_POST, URI_GET } from '../../const';
+
 const fetchQuests = function() :ThunkActionResult {
   return async (dispatch, _getState): Promise<void> => {
-     await fetch(URI)
+     await fetch(URI_GET)
        .then((response) => {
          if (response.ok) {
            return response.json();
          } else {
-           throw new Error('err');
+           throw new Error();
          }
        })
        .then((result) => {
@@ -31,12 +32,12 @@ const fetchQuests = function() :ThunkActionResult {
 
 const fetchQuest = function( id: number) :ThunkActionResult {
   return async (dispatch, _getState): Promise<void> => {
-    await fetch(`${URI}/${id}`)
+    await fetch(`${URI_GET}/${id}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
         } else {
-          throw new Error('err');
+          throw new Error();
         }
       })
       .then((result) => {
@@ -51,7 +52,8 @@ const fetchQuest = function( id: number) :ThunkActionResult {
 
 const postOrder = function(data: {name: string, peopleCount: number, phone: string, isLegal: boolean}) :ThunkActionResult {
   return async (dispatch, _getState): Promise<void> => {
-    await fetch('http://localhost:3001/orders', {
+    dispatch(setPostOrderStatus('trying'));
+    await fetch(URI_POST, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -61,12 +63,12 @@ const postOrder = function(data: {name: string, peopleCount: number, phone: stri
       .then((response) => response.json())
       .then((data) => {
         if (data === 201) {
-          console.log('success');
+          dispatch(setPostOrderStatus('success'));
         } else {
-          throw new Error('err');
+          throw new Error();
         }
       })
-      .catch((err) => console.log(err));
+      .catch(() => dispatch(setPostOrderStatus('error')));
   }
 }
 

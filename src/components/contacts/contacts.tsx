@@ -1,5 +1,5 @@
 import { MainLayout, PageTitle, PageSubtext } from '../common/common';
-import contactsMap from '../../assets/img/contacts-map.jpg';
+// import contactsMap from '../../assets/img/contacts-map.jpg';
 import * as S from './contacts.styled';
 
 const Contacts = () => (
@@ -42,7 +42,7 @@ const Contacts = () => (
 
           <S.ContactsMap>
             <iframe
-              title="мы находимся по адресу Санкт-Петербург, Набережная реки Карповка, д 5"
+              title="Мы находимся по адресу Санкт-Петербург, Набережная реки Карповка, д 5"
               src="https://yandex.ru/map-widget/v1/?um=constructor%3A84280bb39fa5f6946453c529c7eb0bd3236e31c1ed4bcd598b3764582f77c987&amp;source=constructor"
               width="649"
               height="336"/>

@@ -16,23 +16,12 @@ import { AppDispatch } from '../../store/store';
 import { setFetchStatusDetailedQuest } from '../../store/app-status/selectors';
 import Loading from '../loading/loading';
 
-import { TypesDictionary, LevelsDictionary } from '../../types/types';
+import { getType, getLevel } from '../../utils/utils';
 
-const types = Object.entries(TypesDictionary);
-const levels = Object.entries(LevelsDictionary);
-
-const getType = (type: string) => {
-  const typePrep = types.find(([engTypes, rusTypes]) => engTypes === type);
-  return typePrep ? typePrep[1] : '';
-}
-
-const getLevel = (level: string) => {
-  const levelPrep = levels.find(([engLevel, rusLevel]) => engLevel === level);
-  return levelPrep ? levelPrep[1] : '';
-}
 
 const DetailedQuest = () => {
   const fetchStatus = useSelector(setFetchStatusDetailedQuest);
+
   const isTrying = fetchStatus === 'trying';
   const isSuccess = fetchStatus === 'success';
 
@@ -52,6 +41,7 @@ const DetailedQuest = () => {
 
   const [isBookingModalOpened, setIsBookingModalOpened] = useState(false);
 
+
   const onBookingBtnClick = () => {
     setIsBookingModalOpened(true);
   };
@@ -62,13 +52,11 @@ const DetailedQuest = () => {
 
   return (
     <MainLayout>
-      { isTrying
-        &&
-        <Loading />
-      }
+      <S.Main>
+      { isTrying && <Loading /> }
       { isSuccess
         &&
-        <S.Main>
+        <>
           <S.PageImage
             src={`../${coverImg}`}
             alt={`Квест ${title}`}
@@ -107,10 +95,11 @@ const DetailedQuest = () => {
             </S.PageDescription>
           </S.PageContentWrapper>
 
-          {isBookingModalOpened && <BookingModal onCloseModal={onCloseBtnClick}/>}
-        </S.Main>
-      }
+          { isBookingModalOpened && <BookingModal onCloseModal={onCloseBtnClick}/> }
 
+        </>
+      }
+      </S.Main>
     </MainLayout>
   );
 };

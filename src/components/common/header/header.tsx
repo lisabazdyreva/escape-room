@@ -1,6 +1,7 @@
 import logo from 'assets/img/logo.svg';
 import * as S from './header.styled';
 import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 enum MenuDictionary {
   Quests = 'Квесты',
@@ -25,8 +26,23 @@ const menuLinks = Object.entries(MenuLinks);
 
 
 const Header = () => {
-  const [currentTab, setCurrentTab] = useState(menuItems[0]);
+  const {pathname} = useLocation();
 
+  const getInitialCurrentTab = () => {
+    const initialTab = menuLinks.find(([ , path]) => pathname === path);
+    return initialTab ? initialTab[0] : 'Quests';
+  }
+
+  const initialCurrentTab = getInitialCurrentTab();
+
+  const [currentTab, setCurrentTab] = useState(initialCurrentTab);
+
+  const linkClickedHandler = (value: string) => {
+
+    if (value === 'Quests' || value === 'Contacts') {
+      setCurrentTab(value);
+    }
+  }
 
   return (
     <S.StyledHeader>
@@ -42,9 +58,16 @@ const Header = () => {
                 const name = menuDictionary[index][1];
                 const link = menuLinks[index][1];
 
+                const isDisabled = link === '#';
+
                 return (
-                  <S.LinkItem key={menuItem} onClick={() => setCurrentTab(menuItem)}> {/*TODO key*/}
-                    <S.Link $isActiveLink={currentTab === menuItem} to={link}>
+                  <S.LinkItem key={menuItem} > {/*TODO key*/}
+                    <S.Link
+                      onClick={() => linkClickedHandler(menuItem)}
+                      $isDisabled={isDisabled}
+                      to={link}
+                      $isActiveLink={ currentTab === menuItem }
+                    >
                       {name}
                     </S.Link>
                   </S.LinkItem>

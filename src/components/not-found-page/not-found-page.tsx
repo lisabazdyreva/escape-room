@@ -1,11 +1,12 @@
-import { Link } from 'react-router-dom';
+import * as S from './not-found-page.styled';
 
 const NotFoundPage = () => {
   return(
-    <div>
-      Not Found.
-      <Link to='/'>На главную</Link>
-    </div>
+    <S.WrapperNotFound>
+      <S.HeaderNotFound>Такой страницы не существует</S.HeaderNotFound>
+
+      <S.LinkToMain to='/'>На главную</S.LinkToMain>
+    </S.WrapperNotFound>
   )
 }
 

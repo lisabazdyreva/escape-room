@@ -1,6 +1,7 @@
 import * as S from '../booking-modal/booking-modal.styled';
 import React, { ChangeEvent } from 'react';
 
+
 interface IBookingFieldProps {
   textInformation: {
     title: string,
@@ -8,8 +9,8 @@ interface IBookingFieldProps {
     translationLabel: string,
     translationPlaceholder: string,
   },
-  handler: (title: string, value: string | number) => void,
-  getValue: (type: string) => string | number | undefined,
+  handler: (title: string, value: ChangeEvent<HTMLInputElement>) => void,
+  value:  string | number,
 }
 
 const BookingField = (props: IBookingFieldProps) => {
@@ -18,10 +19,8 @@ const BookingField = (props: IBookingFieldProps) => {
   const attrValue = `booking-${title}`;
 
   const inputChanged = (evt: ChangeEvent<HTMLInputElement>) => {
-    props.handler(title, evt.target.value);
+      props.handler(title, evt);
   }
-
-  const value = props.getValue(title);
 
   return (
     <S.BookingField>
@@ -33,7 +32,7 @@ const BookingField = (props: IBookingFieldProps) => {
         placeholder={translationPlaceholder}
         required
         onChange={inputChanged}
-        value={value}
+        value={props.value}
       />
     </S.BookingField>
   );

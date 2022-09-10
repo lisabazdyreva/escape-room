@@ -60,9 +60,18 @@ const TabBtn = styled.button.attrs({ type: 'button' })<ITabBtn>`
     flex-shrink: 0;
   }
 
+  &:disabled {
+    color: ${({ theme }) => theme.color.gray};
+    cursor: not-allowed;
+  }
+
   &:focus span,
   &:hover span {
     border-bottom: 2px solid ${({ theme }) => theme.color.tangerine};
+  }
+
+  &:disabled span {
+    border: none;
   }
 
   ${({ isActive }) =>

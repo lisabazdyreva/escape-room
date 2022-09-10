@@ -1,10 +1,11 @@
 import { AppStatus } from '../../types/state';
 import { createReducer } from '@reduxjs/toolkit';
-import { setFetchStatusDetailedQuest, setFetchStatusQuests } from '../actions/actions';
+import { setFetchStatusDetailedQuest, setFetchStatusQuests, setPostOrderStatus } from '../actions/actions';
 
 const initialState: AppStatus = {
   fetchStatusQuests: 'trying',
   fetchStatusDetailedQuest: 'trying',
+  postOrderStatus: 'default',
 }
 
 export const appStatus = createReducer(initialState, builder => {
@@ -14,5 +15,8 @@ export const appStatus = createReducer(initialState, builder => {
     })
     .addCase(setFetchStatusDetailedQuest, (state, action) => {
       state.fetchStatusDetailedQuest = action.payload;
+    })
+    .addCase(setPostOrderStatus, (state, action) => {
+      state.postOrderStatus = action.payload;
     })
 })

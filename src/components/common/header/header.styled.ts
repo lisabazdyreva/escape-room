@@ -86,6 +86,17 @@ const Link = styled(RouterLink)<ILinkProps>`
   &:hover {
     color: ${({ theme }) => theme.color.tangerine};
   }
+
+  ${({ $isDisabled }) =>
+    $isDisabled &&
+    css`
+      color: ${({ theme }) => theme.color.gray};
+      cursor: not-allowed;
+      &:hover,
+      &:focus {
+        color: ${({ theme }) => theme.color.gray};
+      }
+    `}
 `;
 
 const Phone = styled.a`
