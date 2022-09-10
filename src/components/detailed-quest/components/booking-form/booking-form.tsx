@@ -1,6 +1,9 @@
 import * as S from '../booking-modal/booking-modal.styled';
 import { FormEvent, useState } from 'react';
 import BookingField from '../booking-field/booking-field';
+import { useDispatch } from 'react-redux';
+import { postOrder } from '../../../../store/actions/api-actions';
+import { AppDispatch } from '../../../../store/store';
 
 enum BookingFields {
   NAME = 'name',
@@ -30,13 +33,25 @@ const bookingFields = {
 };
 
 const BookingForm = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const [name, setName] = useState<string | number>(''); // fix
   const [tel, setTel] = useState<string | number>('');
   const [peopleCount, setPeopleCount] = useState<number>(1);
 
   const onFormSubmit = (evt: FormEvent) => {
     evt.preventDefault();
-    // make validation
+    const prepName = String(name);
+    const prepPeopleCount = Number(peopleCount);
+    const prepPhone = String(tel);
+    const isLegal = true;
+
+    dispatch(postOrder({
+      name: prepName,
+      peopleCount: prepPeopleCount,
+      phone: prepPhone,
+      isLegal,
+    }))
+    // TODO make validation
     setName('');
     setTel('');
     setPeopleCount(1);
