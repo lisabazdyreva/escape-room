@@ -2,7 +2,7 @@ import { createAction } from '@reduxjs/toolkit';
 
 import {ActionType} from '../../types/action';
 import { IQuest } from '../../types/types';
-import { FetchStatus } from '../../const';
+import { FetchStatus, FilterDictionary } from '../../const';
 
 export const getQuests = createAction(
   ActionType.GetQuests,
@@ -27,14 +27,14 @@ export const setInitialFilteredQuests = createAction(
 
 export const getFilteredQuests = createAction(
   ActionType.GetFilteredQuests,
-  (type: string) => ({
+  (type: keyof typeof FilterDictionary) => ({
     payload: type,
   })
 )
 
 export const setActiveFilter = createAction(
   ActionType.SetActiveFilter,
-  (type: string) => ({
+  (type: keyof typeof FilterDictionary) => ({
     payload: type,
   })
 )

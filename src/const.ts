@@ -7,12 +7,12 @@ import { ReactComponent as IconDetective } from './assets/img/icon-detective.svg
 import { ReactComponent as IconScifi } from './assets/img/icon-scifi.svg';
 import { StyledSkypeIcon, StyledVkIcon } from './components/common/footer/footer.styled';
 
+export const MAP_URL = "https://yandex.ru/map-widget/v1/?um=constructor%3A84280bb39fa5f6946453c529c7eb0bd3236e31c1ed4bcd598b3764582f77c987&amp;source=constructor";
 
 export const BaseUrl = {
   Get: 'http://localhost:3001/quests',
   Post: 'http://localhost:3001/orders',
 } as const;
-
 
 export const BookingInputName = {
   Name: 'name',
@@ -38,7 +38,7 @@ export const BookingInputPlaceholder = {
   People: 'Количество участников',
 } as const;
 
-export const FiltersToType = {
+export const FilterToQuestType = {
   adventures: 'adventures',
   horrors: 'horror',
   mystic: 'mystic',
@@ -46,31 +46,22 @@ export const FiltersToType = {
   scifi: 'sci-fi',
 } as const;
 
-export const FilterValues = {
-  allQuests: {
-    name: 'Все квесты',
-    img: IconAllQuests,
-  },
-  adventures: {
-    name: 'Приключения',
-    img: IconAdventures,
-  },
-  horrors: {
-    name: 'Ужасы',
-    img: IconHorrors,
-  },
-  mystic: {
-    name: 'Мистика',
-    img: IconMystic,
-  },
-  detective: {
-    name: 'Детектив',
-    img: IconDetective,
-  },
-  scifi: {
-    name: 'Sci-fi',
-    img: IconScifi,
-  },
+export const FilterDictionary = {
+  allQuests: 'Все квесты',
+  adventures: 'Приключения',
+  horrors: 'Ужасы',
+  mystic: 'Мистика',
+  detective: 'Детектив',
+  scifi: 'Sci-fi'
+} as const;
+
+export const FilterIcon = {
+  allQuests: IconAllQuests,
+  adventures: IconAdventures,
+  horrors: IconHorrors,
+  mystic: IconMystic,
+  detective: IconDetective,
+  scifi: IconScifi,
 } as const;
 
 
@@ -85,7 +76,6 @@ export const initialQuest: IQuest = {
   peopleCount: [0, 0],
   duration: 0,
 };
-export const filters = Object.entries(FilterValues);
 
 
 export const TextMessage = {
@@ -93,41 +83,39 @@ export const TextMessage = {
 } as const;
 
 
-export const MinValues = {
+export const MinValue = {
   Name: 2,
   Phone: 10,
   PeopleCount: 1,
 }
 
-export const ValidationMessages = {
+export const ValidationMessage = {
   Default: '',
-  Name: `Имя должно содержать больше ${MinValues.Name} букв.`,
-  Phone: `Телефон состоит из ${MinValues.Phone} символов.`,
-  PeopleCount: `Минимальное количество участников: ${MinValues.PeopleCount}.`,
+  Name: `Имя должно содержать больше ${MinValue.Name} букв.`,
+  Phone: `Телефон состоит из ${MinValue.Phone} символов.`,
+  PeopleCount: `Минимальное количество участников: ${MinValue.PeopleCount}.`,
 } as const;
 
-export const Contacts = {
+export const Contact = {
   Phone: '8 (800) 333-55-99',
   Mail: 'info@escape-room.ru',
 } as const;
 
-export const MAP_URL = "https://yandex.ru/map-widget/v1/?um=constructor%3A84280bb39fa5f6946453c529c7eb0bd3236e31c1ed4bcd598b3764582f77c987&amp;source=constructor";
 
-
-export const Socials = {
-  Skype: {
-    rusName: 'Скайп',
-    link: 'https://web.skype.com/',
-    img: StyledSkypeIcon,
-  },
-  Vk: {
-    rusName: 'Вконтакте',
-    link: 'https://vk.com',
-    img: StyledVkIcon,
-  }
+export const SocialDictionary = {
+  Skype: 'Скайп',
+  Vk: 'Вконтакте',
 } as const;
 
-export const socials = Object.entries(Socials);
+export const SocialLink = {
+  Skype: 'https://web.skype.com/',
+  Vk: 'https://vk.com',
+} as const;
+
+export const SocialIcon = {
+  Skype: StyledSkypeIcon,
+  Vk: StyledVkIcon,
+} as const;
 
 export const AppRoute = {
   Home: '/',
@@ -136,8 +124,12 @@ export const AppRoute = {
   Plug: '#'
 } as const;
 
-
-export const DEFAULT_TAB = 'Quests';
+export const DefaultQuestValue = {
+  Tab: 'Quests',
+  Empty: '',
+  Duration: 0,
+  Filter: 'allQuests'
+} as const;
 
 export const MenuDictionary = {
   Quests: 'Квесты',
@@ -154,17 +146,6 @@ export const MenuLink = {
   Sales: AppRoute.Plug,
   Contacts: AppRoute.Contacts,
 } as const;
-
-
-
-export const DEFAULT_FILTER = 'allQuests';
-
-
-
-
-export const defaultString = '';
-
-export const defaultDuration = 0;
 
 export const TypeDictionary = {
   adventures: 'Приключения',

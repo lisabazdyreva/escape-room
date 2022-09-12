@@ -1,5 +1,5 @@
 import { IQuest } from './types';
-import { FetchStatus } from '../const';
+import { FetchStatus, FilterDictionary } from '../const';
 import { RootState } from '../store/root-reducer';
 
 export type AppData = {
@@ -10,7 +10,7 @@ export type AppData = {
 export type AppProcess = {
   initialFilteredQuests:  IQuest[] | [],
   filteredQuests: IQuest[],
-  activeFilter: string,
+  activeFilter: keyof typeof FilterDictionary,
 }
 
 export type AppStatus = {

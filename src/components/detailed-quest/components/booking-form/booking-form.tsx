@@ -7,7 +7,7 @@ import { AppDispatch } from '../../../../store/store';
 import { checkNameValidity, checkPhoneValidity, checkPeopleCountValidity } from '../../../../utils/validation-utils';
 
 import { BookingInputName } from '../../../../const';
-import { getBookingFields } from '../../../../utils/utils';
+import { bookingInputs } from '../../../../utils/utils';
 import {  FetchStatus } from '../../../../const';
 import { setPostOrderStatus } from '../../../../store/actions/actions';
 
@@ -25,9 +25,7 @@ const BookingForm = ({closeHandler}: IBookingFormProps) => {
   const [peopleCount, setPeopleCount] = useState('');
   const [isLegal, setIsLegal] = useState(false);
 
-  const bookingFields = getBookingFields();
-
-
+  //TODO можно меньше кода?
   const onFormSubmit = (evt: FormEvent) => {
 
     evt.preventDefault();
@@ -60,7 +58,7 @@ const BookingForm = ({closeHandler}: IBookingFormProps) => {
         checkPhoneValidity(value, evt);
         break;
       case BookingInputName.People:
-        setPeopleCount(value); // safari can input letters
+        setPeopleCount(value); // TODO safari can input letters
         checkPeopleCountValidity(value, evt);
         break;
     }
@@ -87,8 +85,9 @@ const BookingForm = ({closeHandler}: IBookingFormProps) => {
       id="booking-form"
       onSubmit={onFormSubmit}
     >
+      {/*TODO fix index*/}
       {
-        bookingFields.map((bookingFieldData, id) => {
+        bookingInputs.map((bookingFieldData, id) => {
           const value = getValueState(bookingFieldData.title);
           const key = `${bookingFieldData.name} ${id}`;
 

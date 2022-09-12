@@ -10,7 +10,6 @@ export const setFetchStatusDetailedQuest = (state: State): FetchStatus => {
   return state[NameSpace.status].fetchStatusDetailedQuest;
 }
 
-
 export const setPostOrderStatus = (state: State): FetchStatus => {
   return state[NameSpace.status].postOrderStatus;
 }

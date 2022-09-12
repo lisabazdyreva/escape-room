@@ -1,15 +1,13 @@
 import {
-  defaultString,
-  defaultDuration,
   TypeDictionary,
   LevelDictionary,
-  Duration
+  Duration, DefaultQuestValue,
 } from '../const';
 
 
-export type QuestType = keyof typeof TypeDictionary | typeof defaultString;
-export type LevelType = keyof typeof LevelDictionary | typeof defaultString;
-export type DurationType = typeof defaultDuration | typeof Duration[keyof typeof Duration];
+export type QuestType = keyof typeof TypeDictionary | typeof DefaultQuestValue.Empty;
+export type LevelType = keyof typeof LevelDictionary | typeof DefaultQuestValue.Empty;
+export type DurationType = typeof Duration[keyof typeof Duration] | typeof DefaultQuestValue.Duration;
 
 
 export interface IQuest {

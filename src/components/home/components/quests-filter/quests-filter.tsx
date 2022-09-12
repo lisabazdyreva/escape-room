@@ -5,10 +5,8 @@ import { getFilteredQuests, setActiveFilter } from '../../../../store/actions/ac
 import { setActiveFilter as activeFilterSelector} from '../../../../store/app-process/selectors';
 import { setFetchStatusQuests as setFetchStatusQuestsSelector } from '../../../../store/app-status/selectors';
 
-import { FilterValues, FetchStatus } from '../../../../const';
-import { getTypeName } from '../../../../utils/utils';
-
-export const filters = Object.entries(FilterValues);
+import { FetchStatus, FilterDictionary } from '../../../../const';
+import { filters, getQuestTypeName } from '../../../../utils/utils';
 
 
 const QuestsFilter = () => {
@@ -17,28 +15,28 @@ const QuestsFilter = () => {
   const loadingStatus = useSelector(setFetchStatusQuestsSelector);
   const activeFilter = useSelector(activeFilterSelector);
 
-  const clickHandler = (value: string) => {
+  const clickHandler = (filter: keyof typeof FilterDictionary) => {
     if (loadingStatus === FetchStatus.Success) {
-      dispatch(setActiveFilter(value));
-      const typeName = getTypeName(value);
-      dispatch(getFilteredQuests(typeName));
+      dispatch(setActiveFilter(filter));
+      const questType = getQuestTypeName(filter);
+      dispatch(getFilteredQuests(questType));
     }
   }
 
   return (
     <S.Tabs>
-      {filters.map(([filterName, filterValue]) => {
-        const DynamicImg = filterValue.img;
+      {filters.map(({name, rusName, icon}) => {
+        const DynamicIcon = icon;
 
-        return ( <S.TabItem key={filterName} >
+        return ( <S.TabItem key={name} >
           <S.TabBtn
-            onClick={ () => clickHandler(filterName) }
+            onClick={ () => clickHandler(name) }
             disabled={ loadingStatus !== FetchStatus.Success }
-            isActive={ activeFilter === filterName }
+            isActive={ activeFilter === name }
           >
-            <DynamicImg />
+            <DynamicIcon />
             <S.TabTitle>
-              {filterValue.name}
+              {rusName}
             </S.TabTitle>
           </S.TabBtn>
         </S.TabItem>);

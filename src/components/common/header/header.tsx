@@ -2,7 +2,7 @@ import logo from 'assets/img/logo.svg';
 import * as S from './header.styled';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { AppRoute, Contacts } from '../../../const';
+import { AppRoute, Contact } from '../../../const';
 
 import { menuItems } from '../../../utils/utils';
 import { getInitialCurrentTab } from '../../../utils/utils';
@@ -30,14 +30,14 @@ const Header = () => {
         <S.Navigation>
           <S.Links>
             {
-              menuItems.map(({link, rusName, keyName}, index) => {
+              menuItems.map(({link, rusName, name}, index) => {
                 const isDisabled = link === AppRoute.Plug;
-                const isActive = currentTab === keyName;
+                const isActive = currentTab === name;
 
                 return (
-                  <S.LinkItem key={`${keyName}-${index}`} >
+                  <S.LinkItem key={`${name}-${index}`} >
                     <S.Link
-                      onClick={() => linkClickedHandler<typeof link, typeof keyName>(link, keyName)}
+                      onClick={() => linkClickedHandler<typeof link, typeof name>(link, name)}
                       $isDisabled={isDisabled}
                       to={link}
                       $isActiveLink={ isActive }
@@ -50,7 +50,7 @@ const Header = () => {
             }
           </S.Links>
         </S.Navigation>
-        <S.Phone href={`tel:${Contacts.Phone}`}>{Contacts.Phone}</S.Phone>
+        <S.Phone href={`tel:${Contact.Phone}`}>{Contact.Phone}</S.Phone>
       </S.HeaderWrapper>
     </S.StyledHeader>
   );

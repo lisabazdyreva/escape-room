@@ -20,6 +20,7 @@ const QuestsCatalog: React.FC = () => {
 
   return (
     <>
+      {/*TODO красивые сообщения*/}
       <QuestsFilter  />
       { fetchStatusQuests === FetchStatus.Trying && <Loading /> }
       { fetchStatusQuests === FetchStatus.Success &&

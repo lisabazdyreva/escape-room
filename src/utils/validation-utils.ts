@@ -1,26 +1,26 @@
 import { ChangeEvent } from 'react';
-import { MinValues, ValidationMessages } from '../const';
+import { MinValue, ValidationMessage } from '../const';
 
 export const checkNameValidity = (value: string, evt: ChangeEvent<HTMLInputElement>) => {
-  if (value.length < MinValues.Name) {
-    evt.target.setCustomValidity(ValidationMessages.Name);
+  if (value.length < MinValue.Name) {
+    evt.target.setCustomValidity(ValidationMessage.Name);
   } else {
-    evt.target.setCustomValidity(ValidationMessages.Default);
+    evt.target.setCustomValidity(ValidationMessage.Default);
   }
 }
 
 export const checkPhoneValidity = (value: string, evt: ChangeEvent<HTMLInputElement>) => {
-  if (value.length !== MinValues.Phone) {
-    evt.target.setCustomValidity(ValidationMessages.Phone);
+  if (value.length !== MinValue.Phone) {
+    evt.target.setCustomValidity(ValidationMessage.Phone);
   } else {
-    evt.target.setCustomValidity(ValidationMessages.Default);
+    evt.target.setCustomValidity(ValidationMessage.Default);
   }
 }
 
 export const checkPeopleCountValidity = (value: string, evt: ChangeEvent<HTMLInputElement>) => {
-  if (Number(value) < MinValues.PeopleCount) {
-    evt.target.setCustomValidity(ValidationMessages.PeopleCount);
+  if (Number(value) < MinValue.PeopleCount) {
+    evt.target.setCustomValidity(ValidationMessage.PeopleCount);
   } else {
-    evt.target.setCustomValidity(ValidationMessages.Default);
+    evt.target.setCustomValidity(ValidationMessage.Default);
   }
 }

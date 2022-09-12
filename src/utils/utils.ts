@@ -11,46 +11,144 @@ import {
   BookingInputName,
   BookingInputPlaceholder,
   BookingInputType,
-  DEFAULT_FILTER,
-  DEFAULT_TAB,
-  FiltersToType,
+  FilterToQuestType,
   MenuDictionary,
   MenuLink,
-  defaultString,
   LevelDictionary,
-  TypeDictionary
+  TypeDictionary, FilterDictionary,
+  FilterIcon, DefaultQuestValue,
+  SocialDictionary,
+  SocialIcon,
+  SocialLink
 } from '../const';
 
-const keysFields = Object.keys(BookingInputName);
+const inputNames = Object.keys(BookingInputName);
 
-const titles = Object.values(BookingInputName);
-const typesValues = Object.values(BookingInputType);
-const placeholders = Object.values(BookingInputPlaceholder);
-const labels = Object.values(BookingInputDictionary);
+const inputTitles = Object.values(BookingInputName);
+const inputTypes = Object.values(BookingInputType);
+const inputPlaceholders = Object.values(BookingInputPlaceholder);
+const inputLabels = Object.values(BookingInputDictionary);
+
+const getBookingInputs = () => inputNames.map((inputName, index) => {
+  const name = inputName as keyof typeof BookingInputName;
+  return ({
+    name,
+    title: inputTitles[index],
+    type: inputTypes[index],
+    translationPlaceholder: inputPlaceholders[index],
+    translationLabel: inputLabels[index],
+  })
+});
+
+export const bookingInputs = getBookingInputs();
 
 
-const types = Object.entries(TypeDictionary);
-const levels = Object.entries(LevelDictionary);
+const socialNames = Object.keys(SocialDictionary);
 
-export const filterTypes = Object.entries(FiltersToType);
+const socialTranslations = Object.values(SocialDictionary);
+const socialIcons = Object.values(SocialIcon);
+const socialLinks = Object.values(SocialLink);
+
+const getSocialValues = () => socialNames.map((socialName, index) => {
+  const name = socialName as keyof typeof SocialDictionary;
+  const rusName = socialTranslations[index];
+  const icon = socialIcons[index];
+  const link = socialLinks[index];
+
+  return ({
+    name,
+    rusName,
+    icon,
+    link
+  });
+});
+
+export const socials = getSocialValues();
 
 
-export const getQuestTypeText = (type: QuestType): QuestType => {
-  const typeRusEng = types.find(([engType ]) => engType === type);
-  if (!typeRusEng) {
-    return defaultString;
+const menuNames = Object.keys(MenuLink);
+const menuTranslations = Object.values(MenuDictionary);
+const menuLinks = Object.values(MenuLink);
+
+const getMenuItems = () => menuNames.map((menuName , index) => {
+  const name = menuName as keyof typeof MenuLink;
+  const link = menuLinks[index];
+  const rusName = menuTranslations[index];
+
+  return({
+    name,
+    link,
+    rusName,
+  })
+});
+
+export const menuItems = getMenuItems();
+
+
+const filterNames = Object.keys(FilterDictionary);
+const filterTranslations = Object.values(FilterDictionary);
+const filterIcons = Object.values(FilterIcon);
+
+
+const getFilterValues = () => filterNames.map((filterName, index) => {
+  const name = filterName as keyof typeof FilterDictionary;
+  const rusName = filterTranslations[index];
+  const icon = filterIcons[index];
+  return ({
+    name,
+    rusName,
+    icon
+  });
+})
+
+export const filters = getFilterValues();
+
+const filtersToQuestTypes = Object.entries(FilterToQuestType);
+
+export const getQuestTypeName = (filter: keyof typeof FilterDictionary) => {
+  const findTypeName = filtersToQuestTypes.find(([filterType]) => filterType === filter);
+  if (!findTypeName) {
+    return DefaultQuestValue.Filter;
   }
+  return findTypeName[1] as keyof typeof FilterDictionary;
+};
 
+
+const questTypes = Object.entries(TypeDictionary);
+export const getQuestTypeText = (type: QuestType): QuestType => {
+  const typeRusEng = questTypes.find(([engType ]) => engType === type);
+  if (!typeRusEng) {
+    return DefaultQuestValue.Empty;
+  }
   return typeRusEng[1] as QuestType;
 }
 
+
+const levels = Object.entries(LevelDictionary);
 export const getQuestLevelText = (level: LevelType): LevelType => {
   const levelRusEng = levels.find(([engLevel]) => engLevel === level);
   if (!levelRusEng) {
-     return defaultString;
+    return DefaultQuestValue.Empty;
   }
 
   return levelRusEng[1] as LevelType;
+}
+
+
+export const getPeopleCountText = ([from, to]: number[]) => `${from}–${to} чел`;
+
+export const getAltText = (title: string) => `Квест ${title}`;
+
+export const getInitialCurrentTab = <T>(pathname: T) => {
+  const initialTab = menuItems.find(({link}) => pathname === link);
+  if (!initialTab) {
+    return DefaultQuestValue.Tab;
+  }
+  return initialTab;
+}
+
+export const getQuestsByFilter = (quests: IQuest[], currentFilter: keyof typeof FilterDictionary) => {
+  return quests.filter((quest: IQuest) => quest.type === currentFilter)
 }
 
 export const getSettingsObject = (data: IPostData) => ({
@@ -61,55 +159,4 @@ export const getSettingsObject = (data: IPostData) => ({
   body: JSON.stringify(data),
 });
 
-
 export const downloadQuests = () => store.dispatch(fetchQuests());
-
-export const getPeopleCountText = ([from, to]: number[]) => `${from}–${to} чел`;
-
-export const getAltText = (title: string) => `Квест ${title}`;
-
-const menuKeys = Object.keys(MenuLink);
-export const menuItemNames = Object.values(MenuDictionary);
-const menuItemsLinks = Object.values(MenuLink);
-
-const getMenuItems = () =>  menuKeys.map((menuKey , index) => {
-  const keyName = menuKey as keyof typeof MenuLink;
-  const link = menuItemsLinks[index];
-  const rusName = menuItemNames[index];
-
-  return({
-    keyName,
-    link,
-    rusName,
-  })
-});
-
-export const menuItems = getMenuItems();
-
-export const getInitialCurrentTab = <T>(pathname: T) => {
-  const initialTab = menuItems.find((menuItem) => pathname === menuItem.link);
-
-  if (!initialTab) {
-    return DEFAULT_TAB;
-  }
-  const name = initialTab.keyName;
-
-  return name;
-}
-
-export const getTypeName = (value: string) => {
-  const findTypeName = filterTypes.find(([key]) => key === value);
-  return  findTypeName ? findTypeName[1] : DEFAULT_FILTER;
-};
-
-export const getQuestsByFilter = (quests: IQuest[], currentFilter: typeof TypeDictionary | string) => {
-  return quests.filter((quest: IQuest) => quest.type === currentFilter)
-}
-
-export const getBookingFields = () => keysFields.map((key, i) => ({
-    name: key,
-    title: titles[i],
-    type: typesValues[i],
-    translationPlaceholder: placeholders[i],
-    translationLabel: labels[i],
-}));

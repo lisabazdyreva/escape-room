@@ -1,7 +1,7 @@
 import { MainLayout, PageTitle, PageSubtext } from '../common/common';
 import * as S from './contacts.styled';
 
-import { Contacts as ContactsConst, MAP_URL } from '../../const';
+import { Contact, MAP_URL } from '../../const';
 
 const Contacts = () => (
   <MainLayout>
@@ -28,15 +28,15 @@ const Contacts = () => (
 
             <S.ContactTitle>Телефон</S.ContactTitle>
             <S.ContactValue>
-              <S.ContactLink href={`tel:${ContactsConst.Phone}`}>
-                {ContactsConst.Phone}
+              <S.ContactLink href={`tel:${Contact.Phone}`}>
+                {Contact.Phone}
               </S.ContactLink>
             </S.ContactValue>
 
             <S.ContactTitle>E-mail</S.ContactTitle>
             <S.ContactValue>
-              <S.ContactLink href={`mailto:${ContactsConst.Mail}`}>
-                {ContactsConst.Mail}
+              <S.ContactLink href={`mailto:${Contact.Mail}`}>
+                {Contact.Mail}
               </S.ContactLink>
             </S.ContactValue>
           </S.ContactsList>
