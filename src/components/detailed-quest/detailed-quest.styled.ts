@@ -2,8 +2,8 @@ import styled from 'styled-components';
 import { Button } from 'components/common/common';
 
 const Main = styled.main`
-  max-width: 556px;
-  margin-top: 149px;
+  max-width: 680px;
+  margin-top: 139px;
   margin-bottom: 149px;
   margin-left: 43.92vw;
 `;
@@ -27,7 +27,7 @@ const PageContentWrapper = styled.div`
 const PageHeading = styled.div`
   display: flex;
   flex-direction: column-reverse;
-  margin-bottom: 29px;
+  margin-bottom: 14px;
 `;
 
 const PageTitle = styled.h1`
@@ -56,6 +56,10 @@ const PageSubtitle = styled.p`
 
 const PageDescription = styled.div`
   padding-left: 32px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+
+  max-width: 520px;
 `;
 
 const Features = styled.ul`
@@ -63,7 +67,7 @@ const Features = styled.ul`
   flex-wrap: wrap;
 
   margin: 0;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
   padding: 0;
   list-style: none;
 `;

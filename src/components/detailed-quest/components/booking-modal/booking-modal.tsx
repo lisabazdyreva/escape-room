@@ -5,6 +5,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { setPostOrderStatus as setPostOrderStatusSelector } from '../../../../store/app-status/selectors';
 import Loading from '../../../loading/loading';
+import { FetchStatusPost } from '../../../../types/types';
 
 
 interface IBookingModalProps {
@@ -14,19 +15,9 @@ interface IBookingModalProps {
 const BookingModal = ({onCloseModal}: IBookingModalProps) =>  {
   const loadingPostStatus = useSelector(setPostOrderStatusSelector);
 
-  const isDefault = loadingPostStatus === 'default';
-  const isTrying = loadingPostStatus === 'trying';
-  const isSuccess = loadingPostStatus === 'success';
-  const isError = loadingPostStatus === 'error';
-
-
-  const onSubmitHandler = () => {
-    onCloseModal();
-  }
-
   return (
       <>
-        { isDefault &&
+        { loadingPostStatus === FetchStatusPost.Default &&
           <S.BlockLayer>
             <S.Modal>
               <S.ModalCloseBtn onClick={onCloseModal}>
@@ -34,12 +25,12 @@ const BookingModal = ({onCloseModal}: IBookingModalProps) =>  {
                 <S.ModalCloseLabel>Закрыть окно</S.ModalCloseLabel>
               </S.ModalCloseBtn>
               <S.ModalTitle>Оставить заявку</S.ModalTitle>
-              <BookingForm closeHandler={onSubmitHandler} />
+              <BookingForm closeHandler={onCloseModal} />
             </S.Modal>
           </S.BlockLayer>
         }
 
-        { isTrying &&
+        { loadingPostStatus === FetchStatusPost.Trying &&
           <S.BlockLayer>
             <S.Modal>
               <S.ModalTitle>
@@ -51,7 +42,7 @@ const BookingModal = ({onCloseModal}: IBookingModalProps) =>  {
         }
 
         {
-          isSuccess &&
+          loadingPostStatus === FetchStatusPost.Success &&
             <S.BlockLayer>
               <S.Modal>
                 <S.ModalTitle>
@@ -62,7 +53,7 @@ const BookingModal = ({onCloseModal}: IBookingModalProps) =>  {
         }
 
         {
-          isError &&
+          loadingPostStatus === FetchStatusPost.Error &&
           <S.BlockLayer>
             <S.Modal>
               <S.ModalTitle>

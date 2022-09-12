@@ -7,7 +7,7 @@ import { AppDispatch } from '../../../../store/store';
 import { checkNameValidity, checkPhoneValidity, checkPeopleCountValidity } from '../../../../utils/validation-utils';
 
 import { bookingFields } from '../../../../const';
-import {BookingFields} from '../../../../types/types';
+import { BookingFields, FetchStatusPost } from '../../../../types/types';
 import { setPostOrderStatus } from '../../../../store/actions/actions';
 
 
@@ -21,12 +21,12 @@ const BookingForm = ({closeHandler}: IBookingFormProps) => {
   const [name, setName] = useState('');
   const [tel, setTel] = useState('');
   const [peopleCount, setPeopleCount] = useState('');
+  const [isLegal, setIsLegal] = useState(false);
 
 
   const onFormSubmit = (evt: FormEvent) => {
 
     evt.preventDefault();
-    const isLegal = true;
 
     dispatch(postOrder({
       name,
@@ -37,7 +37,7 @@ const BookingForm = ({closeHandler}: IBookingFormProps) => {
       .then(() => {
         setTimeout(() => {
           closeHandler();
-          dispatch(setPostOrderStatus('default'));
+          dispatch(setPostOrderStatus(FetchStatusPost.Default));
         }, 1500);
       });
 
@@ -100,6 +100,8 @@ const BookingForm = ({closeHandler}: IBookingFormProps) => {
           id="booking-legal"
           name="booking-legal"
           required
+          checked={isLegal}
+          onChange={() => setIsLegal(!isLegal)}
         />
         <S.BookingCheckboxLabel
           className="checkbox-label"

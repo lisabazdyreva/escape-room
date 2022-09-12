@@ -4,9 +4,11 @@ import App from './components/app/app';
 
 import { Provider } from 'react-redux';
 
-import { fetchQuests } from './store/actions/api-actions';
+// import { fetchQuests } from './store/actions/api-actions';
+
 import { configureStore } from '@reduxjs/toolkit';
 import { rootReducer } from './store/root-reducer';
+import { downloadQuests } from './utils/utils';
 
 export const store = configureStore({
   reducer: rootReducer,
@@ -17,7 +19,7 @@ export const store = configureStore({
   })
 });
 
-store.dispatch(fetchQuests());
+downloadQuests();
 
 render(
   <StrictMode>

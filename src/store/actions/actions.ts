@@ -1,7 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
 
 import {ActionType} from '../../types/action';
-import { IQuest } from '../../types/types';
+import { FetchStatusGet, FetchStatusPost, IQuest } from '../../types/types';
 
 export const getQuests = createAction(
   ActionType.GetQuests,
@@ -40,7 +40,7 @@ export const setActiveFilter = createAction(
 
 export const setFetchStatusQuests = createAction(
   ActionType.SetFetchStatusQuests,
-  (status: 'trying' | 'success' | 'error') => ({
+  (status: FetchStatusGet) => ({
     payload: status,
   })
 )
@@ -48,14 +48,14 @@ export const setFetchStatusQuests = createAction(
 
 export const setFetchStatusDetailedQuest = createAction(
   ActionType.SetFetchStatusDetailedQuest,
-  (status: 'trying' | 'success' | 'error') => ({
+  (status: FetchStatusGet) => ({
     payload: status,
   })
 )
 
 export const setPostOrderStatus = createAction(
   ActionType.SetPostOrderStatus,
-  (status: 'trying' | 'success' | 'error' | 'default') => ({
+  (status: FetchStatusPost) => ({
     payload: status,
   })
 )

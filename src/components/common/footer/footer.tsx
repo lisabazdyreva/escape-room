@@ -1,20 +1,21 @@
 import * as S from './footer.styled';
+import { socials } from '../../../const';
+
 
 const Footer = () => (
   <S.StyledFooter>
     <S.Socials>
-      <S.SocialItem>
-        <S.SocialLink target="_blank" href="https://instagram.com">
-          <S.StyledInstagramIcon />
-          <S.HiddenText>Инстаграм</S.HiddenText>
-        </S.SocialLink>
-      </S.SocialItem>
-      <S.SocialItem>
-        <S.SocialLink target="_blank" href="https://vk.com">
-          <S.StyledVkIcon />
-          <S.HiddenText>Вконтакте</S.HiddenText>
-        </S.SocialLink>
-      </S.SocialItem>
+      {socials.map(([name, info]) => {
+        const DynamicImg = info.img;
+        return (
+          <S.SocialItem key={name}>
+              <S.SocialLink target="_blank" href={info.link}>
+                <DynamicImg/>
+                <S.HiddenText>{info.rusName}</S.HiddenText>
+              </S.SocialLink>
+          </S.SocialItem>
+        );
+      })}
     </S.Socials>
   </S.StyledFooter>
 );

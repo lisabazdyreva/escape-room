@@ -8,30 +8,28 @@ import { useSelector } from 'react-redux';
 import { getFilteredQuests } from '../../../../store/app-process/selectors';
 import { setFetchStatusQuests } from '../../../../store/app-status/selectors';
 import Loading from '../../../loading/loading';
+import { FetchStatusGet } from '../../../../types/types';
 
+import { TextMessages } from '../../../../const';
+
+import { downloadQuests } from '../../../../utils/utils';
 
 
 const QuestsCatalog: React.FC = () => {
   const filteredQuests = useSelector(getFilteredQuests);
   const fetchStatusQuests = useSelector(setFetchStatusQuests);
 
-  const isTrying = fetchStatusQuests === 'trying';
-  const isSuccess = fetchStatusQuests === 'success';
-  const isError = fetchStatusQuests === 'error';
-
   return (
     <>
       <QuestsFilter  />
-      { isTrying &&
-        <Loading />
-      }
-      { isSuccess &&
+      { fetchStatusQuests === FetchStatusGet.Trying && <Loading /> }
+      { fetchStatusQuests === FetchStatusGet.Success &&
         <S.QuestsList>
           { filteredQuests.map((quest) => <QuestItem key={quest.id} quest={quest} />) }
         </S.QuestsList>
       }
 
-      { isError && <div>Произошла ошибка, попробуйте позже.</div> }
+      { fetchStatusQuests === FetchStatusGet.Error && <div>{ TextMessages.Error } <button onClick={downloadQuests}>Попробовать снова</button></div> }
     </>
   );
 }

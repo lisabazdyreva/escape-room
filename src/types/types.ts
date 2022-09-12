@@ -1,9 +1,9 @@
 export enum TypesDictionary {
-  adventure = 'Приключения',
+  adventures = 'Приключения',
   horror = 'Ужасы',
   mystic = 'Мистика',
   detective = 'Детектив',
-  scifi = 'Sci-fi',
+  'sci-fi' = 'Sci-fi',
 }
 
 export enum LevelsDictionary {
@@ -30,4 +30,26 @@ export enum BookingFields {
   NAME = 'name',
   PHONE = 'phone',
   PEOPLE = 'people',
+}
+
+export enum FetchStatusGet {
+  Trying = 'trying',
+  Success = 'success',
+  Error = 'error',
+  Default = 'default',
+}
+
+export enum FetchStatusPost {
+  Trying = 'trying',
+  Success = 'success',
+  Error = 'error',
+  Default = 'default',
+}
+
+
+export interface IPostData {
+  name: string,
+  peopleCount: number,
+  phone: string,
+  isLegal: boolean
 }

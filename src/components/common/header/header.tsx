@@ -2,44 +2,21 @@ import logo from 'assets/img/logo.svg';
 import * as S from './header.styled';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { AppRoute, Contacts } from '../../../const';
 
-enum MenuDictionary {
-  Quests = 'Квесты',
-  Junior = 'Новичкам',
-  Reviews = 'Отзывы',
-  Sales = 'Акции',
-  Contacts = 'Контакты',
-}
+import { menuItems} from '../../../const';
 
-enum MenuLinks {
-  Quests = '/',
-  Junior = '#',
-  Reviews = '#',
-  Sales = '#',
-  Contacts = '/contacts',
-}
-
-const menuItems = Object.keys(MenuDictionary);
-
-const menuDictionary = Object.entries(MenuDictionary);
-const menuLinks = Object.entries(MenuLinks);
-
+import { getInitialCurrentTab } from '../../../utils/utils';
 
 const Header = () => {
   const {pathname} = useLocation();
 
-  const getInitialCurrentTab = () => {
-    const initialTab = menuLinks.find(([ , path]) => pathname === path);
-    return initialTab ? initialTab[0] : 'Quests';
-  }
-
-  const initialCurrentTab = getInitialCurrentTab();
+  const initialCurrentTab = getInitialCurrentTab(pathname);
 
   const [currentTab, setCurrentTab] = useState(initialCurrentTab);
 
-  const linkClickedHandler = (value: string) => {
-
-    if (value === 'Quests' || value === 'Contacts') {
+  const linkClickedHandler = (value: string, link: string) => {
+    if (link !== AppRoute.Plug) {
       setCurrentTab(value);
     }
   }
@@ -47,26 +24,25 @@ const Header = () => {
   return (
     <S.StyledHeader>
       <S.HeaderWrapper>
-        <S.Logo>
+        <S.LogoLink to={AppRoute.Home}>
           <S.Image src={logo} alt="Логотип Escape Room" width="134" height="50" />
-        </S.Logo>
+        </S.LogoLink>
 
         <S.Navigation>
           <S.Links>
             {
-              menuItems.map((menuItem, index) => {
-                const name = menuDictionary[index][1];
-                const link = menuLinks[index][1];
-
-                const isDisabled = link === '#';
+              menuItems.map(([menuItemName, menuInfo], index) => {
+                const name = menuInfo.rus;
+                const link = menuInfo.link;
+                const isDisabled = link === AppRoute.Plug;
 
                 return (
-                  <S.LinkItem key={menuItem} > {/*TODO key*/}
+                  <S.LinkItem key={menuItemName} > {/*TODO key*/}
                     <S.Link
-                      onClick={() => linkClickedHandler(menuItem)}
+                      onClick={() => linkClickedHandler(menuItemName, link)}
                       $isDisabled={isDisabled}
                       to={link}
-                      $isActiveLink={ currentTab === menuItem }
+                      $isActiveLink={ currentTab === menuItemName }
                     >
                       {name}
                     </S.Link>
@@ -76,7 +52,7 @@ const Header = () => {
             }
           </S.Links>
         </S.Navigation>
-        <S.Phone href="tel:88003335599">8 (800) 333-55-99</S.Phone>
+        <S.Phone href={`tel:${Contacts.Phone}`}>{Contacts.Phone}</S.Phone>
       </S.HeaderWrapper>
     </S.StyledHeader>
   );

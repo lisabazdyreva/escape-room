@@ -1,15 +1,16 @@
 import { State } from '../../types/state';
 import { NameSpace } from '../root-reducer';
+import { FetchStatusGet, FetchStatusPost } from '../../types/types';
 
-export const setFetchStatusQuests = (state: State): 'trying' | 'success' | 'error' => {
+export const setFetchStatusQuests = (state: State): FetchStatusGet => {
   return state[NameSpace.status].fetchStatusQuests;
 }
 
-export const setFetchStatusDetailedQuest = (state: State): 'trying' | 'success' | 'error' => {
+export const setFetchStatusDetailedQuest = (state: State): FetchStatusGet => {
   return state[NameSpace.status].fetchStatusDetailedQuest;
 }
 
 
-export const setPostOrderStatus = (state: State): 'trying' | 'success' | 'error' | 'default' => {
+export const setPostOrderStatus = (state: State): FetchStatusPost => {
   return state[NameSpace.status].postOrderStatus;
 }

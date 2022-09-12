@@ -1,6 +1,7 @@
 import { MainLayout, PageTitle, PageSubtext } from '../common/common';
-// import contactsMap from '../../assets/img/contacts-map.jpg';
 import * as S from './contacts.styled';
+
+import { Contacts as ContactsConst, MAP_URL } from '../../const';
 
 const Contacts = () => (
   <MainLayout>
@@ -27,15 +28,15 @@ const Contacts = () => (
 
             <S.ContactTitle>Телефон</S.ContactTitle>
             <S.ContactValue>
-              <S.ContactLink href="tel:8 (800) 333-55-99">
-                8 (800) 333-55-99
+              <S.ContactLink href={`tel:${ContactsConst.Phone}`}>
+                {ContactsConst.Phone}
               </S.ContactLink>
             </S.ContactValue>
 
             <S.ContactTitle>E-mail</S.ContactTitle>
             <S.ContactValue>
-              <S.ContactLink href="mailto:info@escape-room.ru">
-                info@escape-room.ru
+              <S.ContactLink href={`mailto:${ContactsConst.Mail}`}>
+                {ContactsConst.Mail}
               </S.ContactLink>
             </S.ContactValue>
           </S.ContactsList>
@@ -43,7 +44,7 @@ const Contacts = () => (
           <S.ContactsMap>
             <iframe
               title="Мы находимся по адресу Санкт-Петербург, Набережная реки Карповка, д 5"
-              src="https://yandex.ru/map-widget/v1/?um=constructor%3A84280bb39fa5f6946453c529c7eb0bd3236e31c1ed4bcd598b3764582f77c987&amp;source=constructor"
+              src={MAP_URL}
               width="649"
               height="336"/>
           </S.ContactsMap>

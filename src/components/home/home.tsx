@@ -7,8 +7,6 @@ import {
 import { QuestsCatalog } from './components/components';
 import * as S from './home.styled';
 
-
-
 const HomePage = () => (
   <MainLayout>
     <S.Main forwardedAs="main">

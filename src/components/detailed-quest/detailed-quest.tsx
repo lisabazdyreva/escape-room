@@ -16,14 +16,12 @@ import { AppDispatch } from '../../store/store';
 import { setFetchStatusDetailedQuest } from '../../store/app-status/selectors';
 import Loading from '../loading/loading';
 
-import { getType, getLevel } from '../../utils/utils';
+import { getType, getLevel, getPeopleCountText, getAltText } from '../../utils/utils';
+import { FetchStatusGet } from '../../types/types';
 
 
 const DetailedQuest = () => {
   const fetchStatus = useSelector(setFetchStatusDetailedQuest);
-
-  const isTrying = fetchStatus === 'trying';
-  const isSuccess = fetchStatus === 'success';
 
   const params: {id: string} = useParams();
   const {id} = params;
@@ -50,38 +48,48 @@ const DetailedQuest = () => {
     setIsBookingModalOpened(false);
   }
 
+  const peopleCountText = getPeopleCountText(peopleCount);
+  const durationText = `${duration} мин`;
+  const levelText = getLevel(level);
+  const typeText = getType(type);
+
+  const imgSrc = `../${coverImg}`;
+  const altText = getAltText(title);
+
+  console.log(typeText);
+
   return (
     <MainLayout>
       <S.Main>
-      { isTrying && <Loading /> }
-      { isSuccess
+      { fetchStatus === FetchStatusGet.Trying && <Loading /> }
+      { fetchStatus === FetchStatusGet.Success
         &&
         <>
           <S.PageImage
-            src={`../${coverImg}`}
-            alt={`Квест ${title}`}
+            src={imgSrc}
+            alt={altText}
             width="1366"
             height="768"
           />
           <S.PageContentWrapper>
             <S.PageHeading>
               <S.PageTitle>{title}</S.PageTitle>
-              <S.PageSubtitle>{getType(type)}</S.PageSubtitle>
+              <S.PageSubtitle>{typeText}</S.PageSubtitle>
             </S.PageHeading>
 
             <S.PageDescription>
               <S.Features>
                 <S.FeaturesItem>
                   <IconClock width="20" height="20" />
-                  <S.FeatureTitle>{duration} мин</S.FeatureTitle>
+                  <S.FeatureTitle>{durationText}</S.FeatureTitle>
                 </S.FeaturesItem>
                 <S.FeaturesItem>
                   <IconPerson width="19" height="24" />
-                  <S.FeatureTitle>{peopleCount[0]}–{peopleCount[1]} чел</S.FeatureTitle>
+                  <S.FeatureTitle>{peopleCountText}</S.FeatureTitle>
                 </S.FeaturesItem>
                 <S.FeaturesItem>
                   <IconPuzzle width="24" height="24" />
-                  <S.FeatureTitle>{getLevel(level)}</S.FeatureTitle>
+                  <S.FeatureTitle>{levelText}</S.FeatureTitle>
                 </S.FeaturesItem>
               </S.Features>
 

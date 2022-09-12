@@ -2,19 +2,8 @@ import { createReducer } from '@reduxjs/toolkit';
 
 import { getQuests, getSelectedQuest } from '../actions/actions';
 import { AppData } from '../../types/state';
-import { IQuest } from '../../types/types';
 
-const initialQuest: IQuest = {
-  id: 0,
-  title: '',
-  description: '',
-  previewImg: '',
-  coverImg: '',
-  type: '',
-  level: '',
-  peopleCount: [0, 0],
-  duration: 0,
-};
+import { initialQuest } from '../../const';
 
 const initialState: AppData = {
   quests: [],

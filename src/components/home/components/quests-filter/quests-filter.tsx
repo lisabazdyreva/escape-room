@@ -5,31 +5,24 @@ import { getFilteredQuests, setActiveFilter } from '../../../../store/actions/ac
 import { setActiveFilter as activeFilterSelector} from '../../../../store/app-process/selectors';
 import { setFetchStatusQuests as setFetchStatusQuestsSelector } from '../../../../store/app-status/selectors';
 
-import { FilterValues, FiltersToType } from '../../../../const';
+import { filters } from '../../../../const';
+import { FetchStatusGet } from '../../../../types/types';
+import { getTypeName } from '../../../../utils/utils';
 
-const filters = Object.entries(FilterValues);
 
 const QuestsFilter = () => {
-  let isDisabled = true;
-  const isSuccessLoaded = useSelector(setFetchStatusQuestsSelector);
-
-  if (isSuccessLoaded === 'success') {
-    isDisabled = false;
-  }
-
   const dispatch = useDispatch();
 
-  const clickHandler = (val: string) => {
-    if (isSuccessLoaded) {
-      dispatch(setActiveFilter(val));
+  const loadingStatus = useSelector(setFetchStatusQuestsSelector);
+  const activeFilter = useSelector(activeFilterSelector);
 
-      const findTypeName = Object.entries(FiltersToType).find(([key]) => key === val);
-      const typeName = findTypeName ? findTypeName[1] : 'allQuests';
+  const clickHandler = (value: string) => {
+    if (loadingStatus === FetchStatusGet.Success) {
+      dispatch(setActiveFilter(value));
+      const typeName = getTypeName(value);
       dispatch(getFilteredQuests(typeName));
     }
   }
-
-  const activeFilter = useSelector(activeFilterSelector);
 
   return (
     <S.Tabs>
@@ -37,9 +30,15 @@ const QuestsFilter = () => {
         const DynamicImg = filterValue.img;
 
         return ( <S.TabItem key={filterName} >
-          <S.TabBtn onClick={ () => clickHandler(filterName) } disabled={ isDisabled } isActive={ activeFilter === filterName }>
+          <S.TabBtn
+            onClick={ () => clickHandler(filterName) }
+            disabled={ loadingStatus !== FetchStatusGet.Success }
+            isActive={ activeFilter === filterName }
+          >
             <DynamicImg />
-            <S.TabTitle>{filterValue.name}</S.TabTitle>
+            <S.TabTitle>
+              {filterValue.name}
+            </S.TabTitle>
           </S.TabBtn>
         </S.TabItem>);
       })}

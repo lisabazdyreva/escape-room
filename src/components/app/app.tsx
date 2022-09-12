@@ -13,6 +13,8 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import { appTheme } from './common';
 import * as S from './app.styled';
 
+import { AppRoute } from '../../const';
+
 
 const App = () => {
   return (
@@ -20,13 +22,13 @@ const App = () => {
       <S.GlobalStyle />
       <Router>
         <Switch>
-          <Route exact path="/quest/:id">
+          <Route exact path={`${AppRoute.DetailedQuest}:id`}>
             <DetailedQuest />
           </Route>
-          <Route exact path="/contacts">
+          <Route exact path={AppRoute.Contacts}>
             <Contacts />
           </Route>
-          <Route exact path="/" >
+          <Route exact path={AppRoute.Home} >
             <Home />
           </Route>
           <Route>

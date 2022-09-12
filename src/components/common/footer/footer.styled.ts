@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ReactComponent as InstagramIcon } from 'assets/img/icon-instagram-hover.svg';
+import { ReactComponent as SkypeIcon } from 'assets/img/icon-skype-hover.svg';
 import { ReactComponent as VkIcon } from 'assets/img/icon-vk-hover.svg';
 
 const StyledFooter = styled.footer`
@@ -32,16 +32,35 @@ const SocialLink = styled.a`
   display: block;
 `;
 
-const StyledInstagramIcon = styled(InstagramIcon)`
+const StyledSkypeIcon = styled(SkypeIcon)`
   display: flex;
 
-  image {
-    filter: grayscale(1);
+  circle {
+    fill: #c6c4c2;
   }
 
-  &:focus image,
-  &:hover image {
-    filter: grayscale(0);
+  .s-letter {
+    fill: #c6c4c2;
+  }
+
+  path {
+    stroke: ${({ theme }) => theme.color.nero};
+  }
+
+  &:focus circle,
+  &:hover circle {
+    fill: #ffffff;
+  }
+
+  &:focus .s-letter,
+  &:hover .s-letter {
+    fill: #ffffff;
+  }
+
+  &:focus path,
+  &:hover path {
+    fill: #7ACCFF;
+    stroke: none;
   }
 `;
 
@@ -74,7 +93,7 @@ export {
   Socials,
   SocialItem,
   SocialLink,
-  StyledInstagramIcon,
+  StyledSkypeIcon,
   StyledVkIcon,
   HiddenText,
 };
