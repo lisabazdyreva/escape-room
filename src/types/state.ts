@@ -1,4 +1,5 @@
-import { FetchStatusGet, FetchStatusPost, IQuest } from './types';
+import { IQuest } from './types';
+import { FetchStatus } from '../const';
 import { RootState } from '../store/root-reducer';
 
 export type AppData = {
@@ -13,9 +14,9 @@ export type AppProcess = {
 }
 
 export type AppStatus = {
-  fetchStatusQuests: FetchStatusGet,
-  fetchStatusDetailedQuest: FetchStatusGet,
-  postOrderStatus: FetchStatusPost,
+  fetchStatusQuests: FetchStatus,
+  fetchStatusDetailedQuest: FetchStatus,
+  postOrderStatus: FetchStatus,
 }
 
 export type State = RootState;

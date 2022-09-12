@@ -6,14 +6,16 @@ import { postOrder } from '../../../../store/actions/api-actions';
 import { AppDispatch } from '../../../../store/store';
 import { checkNameValidity, checkPhoneValidity, checkPeopleCountValidity } from '../../../../utils/validation-utils';
 
-import { bookingFields } from '../../../../const';
-import { BookingFields, FetchStatusPost } from '../../../../types/types';
+import { BookingInputName } from '../../../../const';
+import { getBookingFields } from '../../../../utils/utils';
+import {  FetchStatus } from '../../../../const';
 import { setPostOrderStatus } from '../../../../store/actions/actions';
 
 
 interface IBookingFormProps {
   closeHandler: () => void,
 }
+
 
 const BookingForm = ({closeHandler}: IBookingFormProps) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -22,6 +24,8 @@ const BookingForm = ({closeHandler}: IBookingFormProps) => {
   const [tel, setTel] = useState('');
   const [peopleCount, setPeopleCount] = useState('');
   const [isLegal, setIsLegal] = useState(false);
+
+  const bookingFields = getBookingFields();
 
 
   const onFormSubmit = (evt: FormEvent) => {
@@ -37,7 +41,7 @@ const BookingForm = ({closeHandler}: IBookingFormProps) => {
       .then(() => {
         setTimeout(() => {
           closeHandler();
-          dispatch(setPostOrderStatus(FetchStatusPost.Default));
+          dispatch(setPostOrderStatus(FetchStatus.Default));
         }, 1500);
       });
 
@@ -47,16 +51,16 @@ const BookingForm = ({closeHandler}: IBookingFormProps) => {
     const value = evt.target.value;
 
     switch (type) {
-      case BookingFields.NAME:
+      case BookingInputName.Name:
         setName(value);
         checkNameValidity(value, evt);
         break;
-      case BookingFields.PHONE:
+      case BookingInputName.Phone:
         setTel(value);
         checkPhoneValidity(value, evt);
         break;
-      case BookingFields.PEOPLE:
-        setPeopleCount(value);
+      case BookingInputName.People:
+        setPeopleCount(value); // safari can input letters
         checkPeopleCountValidity(value, evt);
         break;
     }
@@ -64,18 +68,17 @@ const BookingForm = ({closeHandler}: IBookingFormProps) => {
 
   const getValueState = (type: string) => {
     switch (type) {
-      case BookingFields.NAME:
+      case BookingInputName.Name:
         return name;
-      case BookingFields.PHONE:
+      case BookingInputName.Phone:
         return tel;
-      case BookingFields.PEOPLE:
+      case BookingInputName.People:
         return peopleCount;
       default:
         return '';
     }
   }
 
-  const fields = Object.entries(bookingFields);
 
   return (
     <S.BookingForm
@@ -85,11 +88,11 @@ const BookingForm = ({closeHandler}: IBookingFormProps) => {
       onSubmit={onFormSubmit}
     >
       {
-        fields.map(([name, information], id) => {
-          const value = getValueState(information.title);
-          const key = `${name} ${id}`;
+        bookingFields.map((bookingFieldData, id) => {
+          const value = getValueState(bookingFieldData.title);
+          const key = `${bookingFieldData.name} ${id}`;
 
-          return <BookingField key={key} textInformation={information} handler={onChangeHandler} value={value} />
+          return <BookingField key={key} textInformation={bookingFieldData} handler={onChangeHandler} value={value} />
         })
       }
 

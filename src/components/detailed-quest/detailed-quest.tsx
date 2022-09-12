@@ -16,8 +16,8 @@ import { AppDispatch } from '../../store/store';
 import { setFetchStatusDetailedQuest } from '../../store/app-status/selectors';
 import Loading from '../loading/loading';
 
-import { getType, getLevel, getPeopleCountText, getAltText } from '../../utils/utils';
-import { FetchStatusGet } from '../../types/types';
+import { getPeopleCountText, getAltText, getQuestTypeText, getQuestLevelText } from '../../utils/utils';
+import { FetchStatus } from '../../const';
 
 
 const DetailedQuest = () => {
@@ -50,19 +50,17 @@ const DetailedQuest = () => {
 
   const peopleCountText = getPeopleCountText(peopleCount);
   const durationText = `${duration} мин`;
-  const levelText = getLevel(level);
-  const typeText = getType(type);
+  const levelText = getQuestLevelText(level);
+  const typeText = getQuestTypeText(type);
 
   const imgSrc = `../${coverImg}`;
   const altText = getAltText(title);
 
-  console.log(typeText);
-
   return (
     <MainLayout>
       <S.Main>
-      { fetchStatus === FetchStatusGet.Trying && <Loading /> }
-      { fetchStatus === FetchStatusGet.Success
+      { fetchStatus === FetchStatus.Trying && <Loading /> }
+      { fetchStatus === FetchStatus.Success
         &&
         <>
           <S.PageImage

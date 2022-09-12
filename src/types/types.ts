@@ -1,18 +1,16 @@
-export enum TypesDictionary {
-  adventures = 'Приключения',
-  horror = 'Ужасы',
-  mystic = 'Мистика',
-  detective = 'Детектив',
-  'sci-fi' = 'Sci-fi',
-}
+import {
+  defaultString,
+  defaultDuration,
+  TypeDictionary,
+  LevelDictionary,
+  Duration
+} from '../const';
 
-export enum LevelsDictionary {
-  easy = 'простой',
-  medium = 'средний',
-  hard = 'сложный',
-}
 
-export type Durations = 0 | 60 | 90 | 120;
+export type QuestType = keyof typeof TypeDictionary | typeof defaultString;
+export type LevelType = keyof typeof LevelDictionary | typeof defaultString;
+export type DurationType = typeof defaultDuration | typeof Duration[keyof typeof Duration];
+
 
 export interface IQuest {
   id: number,
@@ -20,32 +18,11 @@ export interface IQuest {
   description: string,
   previewImg: string,
   coverImg: string,
-  type: TypesDictionary | string,
-  level: LevelsDictionary | string,
+  type: QuestType,
+  level: LevelType,
   peopleCount: number[],
-  duration: Durations,
+  duration: DurationType,
 }
-
-export enum BookingFields {
-  NAME = 'name',
-  PHONE = 'phone',
-  PEOPLE = 'people',
-}
-
-export enum FetchStatusGet {
-  Trying = 'trying',
-  Success = 'success',
-  Error = 'error',
-  Default = 'default',
-}
-
-export enum FetchStatusPost {
-  Trying = 'trying',
-  Success = 'success',
-  Error = 'error',
-  Default = 'default',
-}
-
 
 export interface IPostData {
   name: string,

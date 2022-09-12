@@ -4,20 +4,19 @@ import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { AppRoute, Contacts } from '../../../const';
 
-import { menuItems} from '../../../const';
-
+import { menuItems } from '../../../utils/utils';
 import { getInitialCurrentTab } from '../../../utils/utils';
 
 const Header = () => {
   const {pathname} = useLocation();
-
-  const initialCurrentTab = getInitialCurrentTab(pathname);
+  const path = pathname as keyof typeof AppRoute;
+  const initialCurrentTab = getInitialCurrentTab<typeof path>(path);
 
   const [currentTab, setCurrentTab] = useState(initialCurrentTab);
 
-  const linkClickedHandler = (value: string, link: string) => {
+  const linkClickedHandler = <T, B>(link: T, value: B) => {
     if (link !== AppRoute.Plug) {
-      setCurrentTab(value);
+      setCurrentTab(value as typeof currentTab);
     }
   }
 
@@ -31,20 +30,19 @@ const Header = () => {
         <S.Navigation>
           <S.Links>
             {
-              menuItems.map(([menuItemName, menuInfo], index) => {
-                const name = menuInfo.rus;
-                const link = menuInfo.link;
+              menuItems.map(({link, rusName, keyName}, index) => {
                 const isDisabled = link === AppRoute.Plug;
+                const isActive = currentTab === keyName;
 
                 return (
-                  <S.LinkItem key={menuItemName} > {/*TODO key*/}
+                  <S.LinkItem key={`${keyName}-${index}`} >
                     <S.Link
-                      onClick={() => linkClickedHandler(menuItemName, link)}
+                      onClick={() => linkClickedHandler<typeof link, typeof keyName>(link, keyName)}
                       $isDisabled={isDisabled}
                       to={link}
-                      $isActiveLink={ currentTab === menuItemName }
+                      $isActiveLink={ isActive }
                     >
-                      {name}
+                      {rusName}
                     </S.Link>
                   </S.LinkItem>
                 );

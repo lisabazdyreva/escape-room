@@ -5,7 +5,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { setPostOrderStatus as setPostOrderStatusSelector } from '../../../../store/app-status/selectors';
 import Loading from '../../../loading/loading';
-import { FetchStatusPost } from '../../../../types/types';
+import { FetchStatus } from '../../../../const';
 
 
 interface IBookingModalProps {
@@ -17,7 +17,7 @@ const BookingModal = ({onCloseModal}: IBookingModalProps) =>  {
 
   return (
       <>
-        { loadingPostStatus === FetchStatusPost.Default &&
+        { loadingPostStatus === FetchStatus.Default &&
           <S.BlockLayer>
             <S.Modal>
               <S.ModalCloseBtn onClick={onCloseModal}>
@@ -30,7 +30,7 @@ const BookingModal = ({onCloseModal}: IBookingModalProps) =>  {
           </S.BlockLayer>
         }
 
-        { loadingPostStatus === FetchStatusPost.Trying &&
+        { loadingPostStatus === FetchStatus.Trying &&
           <S.BlockLayer>
             <S.Modal>
               <S.ModalTitle>
@@ -42,7 +42,7 @@ const BookingModal = ({onCloseModal}: IBookingModalProps) =>  {
         }
 
         {
-          loadingPostStatus === FetchStatusPost.Success &&
+          loadingPostStatus === FetchStatus.Success &&
             <S.BlockLayer>
               <S.Modal>
                 <S.ModalTitle>
@@ -53,7 +53,7 @@ const BookingModal = ({onCloseModal}: IBookingModalProps) =>  {
         }
 
         {
-          loadingPostStatus === FetchStatusPost.Error &&
+          loadingPostStatus === FetchStatus.Error &&
           <S.BlockLayer>
             <S.Modal>
               <S.ModalTitle>

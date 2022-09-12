@@ -3,7 +3,9 @@ import { ReactComponent as IconPerson } from '../../../../assets/img/icon-person
 import { ReactComponent as IconPuzzle } from '../../../../assets/img/icon-puzzle.svg';
 import { IQuest } from '../../../../types/types';
 
-import { getAltText, getLevel, getPeopleCountText } from '../../../../utils/utils';
+import { getAltText, getQuestLevelText, getPeopleCountText } from '../../../../utils/utils';
+
+import { AppRoute } from '../../../../const';
 
 interface QuestItemProps {
   quest: IQuest,
@@ -13,10 +15,10 @@ const QuestItem = ({quest}: QuestItemProps) => {
   const {id, title, previewImg, level, peopleCount} = quest;
 
   const peopleCountText = getPeopleCountText(peopleCount);
-  const levelText = getLevel(level);
+  const levelText = getQuestLevelText(level);
   const altText = getAltText(title);
 
-  const link = `/quest/${id}`;
+  const link = `${AppRoute.DetailedQuest}${id}`;
 
   return (
     <S.QuestItem>

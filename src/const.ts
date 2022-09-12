@@ -1,4 +1,4 @@
-import { BookingFields, IQuest } from './types/types';
+import { IQuest } from './types/types';
 import { ReactComponent as IconAllQuests } from './assets/img/icon-all-quests.svg';
 import { ReactComponent as IconAdventures } from './assets/img/icon-adventures.svg';
 import { ReactComponent as IconHorrors } from './assets/img/icon-horrors.svg';
@@ -7,29 +7,36 @@ import { ReactComponent as IconDetective } from './assets/img/icon-detective.svg
 import { ReactComponent as IconScifi } from './assets/img/icon-scifi.svg';
 import { StyledSkypeIcon, StyledVkIcon } from './components/common/footer/footer.styled';
 
-export const URI_GET = 'http://localhost:3001/quests';
-export const URI_POST = 'http://localhost:3001/orders';
 
-export const bookingFields = {
-  NAME: {
-    title: BookingFields.NAME,
-    type: 'text',
-    translationLabel: 'Ваше Имя',
-    translationPlaceholder: 'Имя',
-  },
-  PHONE: {
-    title: BookingFields.PHONE,
-    type: 'tel',
-    translationLabel: 'Контактный телефон',
-    translationPlaceholder: 'Телефон',
-  },
-  PEOPLE: {
-    title: BookingFields.PEOPLE,
-    type: 'number',
-    translationLabel: 'Количество участников',
-    translationPlaceholder: 'Количество участников',
-  },
-};
+export const BaseUrl = {
+  Get: 'http://localhost:3001/quests',
+  Post: 'http://localhost:3001/orders',
+} as const;
+
+
+export const BookingInputName = {
+  Name: 'name',
+  Phone: 'phone',
+  People: 'people',
+} as const;
+
+export const BookingInputType = {
+  Name: 'text',
+  Phone: 'tel',
+  People: 'number',
+} as const;
+
+export const BookingInputDictionary = {
+  Name: 'Ваше имя',
+  Phone: 'Контактный телефон',
+  People: 'Количество участников',
+} as const;
+
+export const BookingInputPlaceholder = {
+  Name: 'Имя',
+  Phone: 'Телефон',
+  People: 'Количество участников',
+} as const;
 
 export const FiltersToType = {
   adventures: 'adventures',
@@ -78,12 +85,10 @@ export const initialQuest: IQuest = {
   peopleCount: [0, 0],
   duration: 0,
 };
-
-
 export const filters = Object.entries(FilterValues);
 
 
-export const TextMessages = {
+export const TextMessage = {
   Error: 'Произошла ошибка, попробуйте позже.',
 } as const;
 
@@ -133,31 +138,57 @@ export const AppRoute = {
 
 
 export const DEFAULT_TAB = 'Quests';
-export const MenuLinks = {
-  Quests: {
-    link: AppRoute.Home,
-    rus: 'Квесты',
-  },
-  Junior: {
-    link: AppRoute.Plug,
-    rus: 'Новичкам',
-  },
-  Reviews:{
-    link: AppRoute.Plug,
-    rus: 'Отзывы',
-  },
-  Sales: {
-    link: AppRoute.Plug,
-    rus: 'Акции',
-  },
-  Contacts: {
-    link: AppRoute.Contacts,
-    rus: 'Контакты',
-  },
+
+export const MenuDictionary = {
+  Quests: 'Квесты',
+  Junior: 'Новичкам',
+  Reviews: 'Отзывы',
+  Sales: 'Акции',
+  Contacts: 'Контакты',
+} as const;
+
+export const MenuLink = {
+  Quests: AppRoute.Home,
+  Junior: AppRoute.Plug,
+  Reviews: AppRoute.Plug,
+  Sales: AppRoute.Plug,
+  Contacts: AppRoute.Contacts,
 } as const;
 
 
-export const menuItems = Object.entries(MenuLinks);
-
 
 export const DEFAULT_FILTER = 'allQuests';
+
+
+
+
+export const defaultString = '';
+
+export const defaultDuration = 0;
+
+export const TypeDictionary = {
+  adventures: 'Приключения',
+  horror: 'Ужасы',
+  mystic: 'Мистика',
+  detective: 'Детектив',
+  'sci-fi': 'Sci-fi',
+} as const;
+
+export const LevelDictionary = {
+  easy: 'простой', // TODO small letters
+  medium: 'средний',
+  hard: 'сложный',
+} as const;
+
+export const Duration = {
+  Short: 60,
+  Medium: 90,
+  Long: 120,
+} as const;
+
+export enum FetchStatus {
+  Trying = 'trying',
+  Success = 'success',
+  Error = 'error',
+  Default = 'default',
+}

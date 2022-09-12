@@ -8,9 +8,8 @@ import { useSelector } from 'react-redux';
 import { getFilteredQuests } from '../../../../store/app-process/selectors';
 import { setFetchStatusQuests } from '../../../../store/app-status/selectors';
 import Loading from '../../../loading/loading';
-import { FetchStatusGet } from '../../../../types/types';
 
-import { TextMessages } from '../../../../const';
+import { TextMessage, FetchStatus } from '../../../../const';
 
 import { downloadQuests } from '../../../../utils/utils';
 
@@ -22,14 +21,14 @@ const QuestsCatalog: React.FC = () => {
   return (
     <>
       <QuestsFilter  />
-      { fetchStatusQuests === FetchStatusGet.Trying && <Loading /> }
-      { fetchStatusQuests === FetchStatusGet.Success &&
+      { fetchStatusQuests === FetchStatus.Trying && <Loading /> }
+      { fetchStatusQuests === FetchStatus.Success &&
         <S.QuestsList>
           { filteredQuests.map((quest) => <QuestItem key={quest.id} quest={quest} />) }
         </S.QuestsList>
       }
 
-      { fetchStatusQuests === FetchStatusGet.Error && <div>{ TextMessages.Error } <button onClick={downloadQuests}>Попробовать снова</button></div> }
+      { fetchStatusQuests === FetchStatus.Error && <div>{ TextMessage.Error } <button onClick={downloadQuests}>Попробовать снова</button></div> }
     </>
   );
 }

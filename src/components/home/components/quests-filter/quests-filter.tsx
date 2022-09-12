@@ -5,9 +5,10 @@ import { getFilteredQuests, setActiveFilter } from '../../../../store/actions/ac
 import { setActiveFilter as activeFilterSelector} from '../../../../store/app-process/selectors';
 import { setFetchStatusQuests as setFetchStatusQuestsSelector } from '../../../../store/app-status/selectors';
 
-import { filters } from '../../../../const';
-import { FetchStatusGet } from '../../../../types/types';
+import { FilterValues, FetchStatus } from '../../../../const';
 import { getTypeName } from '../../../../utils/utils';
+
+export const filters = Object.entries(FilterValues);
 
 
 const QuestsFilter = () => {
@@ -17,7 +18,7 @@ const QuestsFilter = () => {
   const activeFilter = useSelector(activeFilterSelector);
 
   const clickHandler = (value: string) => {
-    if (loadingStatus === FetchStatusGet.Success) {
+    if (loadingStatus === FetchStatus.Success) {
       dispatch(setActiveFilter(value));
       const typeName = getTypeName(value);
       dispatch(getFilteredQuests(typeName));
@@ -32,7 +33,7 @@ const QuestsFilter = () => {
         return ( <S.TabItem key={filterName} >
           <S.TabBtn
             onClick={ () => clickHandler(filterName) }
-            disabled={ loadingStatus !== FetchStatusGet.Success }
+            disabled={ loadingStatus !== FetchStatus.Success }
             isActive={ activeFilter === filterName }
           >
             <DynamicImg />
