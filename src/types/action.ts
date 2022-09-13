@@ -13,6 +13,5 @@ export enum ActionType {
   SetFetchStatusDetailedQuest = 'status/setFetchStatusDetailedQuest',
   SetPostOrderStatus = 'status/setPostOrderStatus'
 }
-export type ThunkActionResult<P = Promise<void>> = ThunkAction<P, State, unknown, Action>; // TODO unknown
-// TODO производительность
-// TODO верстка и styled
+export type ThunkActionResult<P = Promise<void>> = ThunkAction<P, State, unknown, Action>;
+// TODO unknown

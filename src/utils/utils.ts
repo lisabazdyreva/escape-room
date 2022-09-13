@@ -19,7 +19,7 @@ import {
   FilterIcon, DefaultQuestValue,
   SocialDictionary,
   SocialIcon,
-  SocialLink
+  SocialLink, BookingInputTitle,
 } from '../const';
 
 const inputNames = Object.keys(BookingInputName);
@@ -28,6 +28,7 @@ const inputTitles = Object.values(BookingInputName);
 const inputTypes = Object.values(BookingInputType);
 const inputPlaceholders = Object.values(BookingInputPlaceholder);
 const inputLabels = Object.values(BookingInputDictionary);
+const inputTooltips = Object.values(BookingInputTitle);
 
 const getBookingInputs = () => inputNames.map((inputName, index) => {
   const name = inputName as keyof typeof BookingInputName;
@@ -37,6 +38,7 @@ const getBookingInputs = () => inputNames.map((inputName, index) => {
     type: inputTypes[index],
     translationPlaceholder: inputPlaceholders[index],
     translationLabel: inputLabels[index],
+    tooltipText: inputTooltips[index],
   })
 });
 
@@ -91,7 +93,7 @@ const filterIcons = Object.values(FilterIcon);
 
 
 const getFilterValues = () => filterNames.map((filterName, index) => {
-  const name = filterName as keyof typeof FilterDictionary;
+  const name = (filterName[0] + filterName.slice(1)) as keyof typeof FilterDictionary;
   const rusName = filterTranslations[index];
   const icon = filterIcons[index];
   return ({
@@ -106,7 +108,7 @@ export const filters = getFilterValues();
 const filtersToQuestTypes = Object.entries(FilterToQuestType);
 
 export const getQuestTypeName = (filter: keyof typeof FilterDictionary) => {
-  const findTypeName = filtersToQuestTypes.find(([filterType]) => filterType === filter);
+  const findTypeName = filtersToQuestTypes.find(([filterType]) => filterType  === filter);
   if (!findTypeName) {
     return DefaultQuestValue.Filter;
   }
@@ -116,7 +118,9 @@ export const getQuestTypeName = (filter: keyof typeof FilterDictionary) => {
 
 const questTypes = Object.entries(TypeDictionary);
 export const getQuestTypeText = (type: QuestType): QuestType => {
-  const typeRusEng = questTypes.find(([engType ]) => engType === type);
+  const filterType = type.slice(0, 1).toUpperCase() + type.slice(1);
+
+  const typeRusEng = questTypes.find(([engType ]) => engType === filterType);
   if (!typeRusEng) {
     return DefaultQuestValue.Empty;
   }
@@ -126,7 +130,9 @@ export const getQuestTypeText = (type: QuestType): QuestType => {
 
 const levels = Object.entries(LevelDictionary);
 export const getQuestLevelText = (level: LevelType): LevelType => {
-  const levelRusEng = levels.find(([engLevel]) => engLevel === level);
+  const levelCorrectName = level.slice(0, 1).toUpperCase() + level.slice(1);
+
+  const levelRusEng = levels.find(([engLevel]) => engLevel === levelCorrectName);
   if (!levelRusEng) {
     return DefaultQuestValue.Empty;
   }
@@ -144,11 +150,14 @@ export const getInitialCurrentTab = <T>(pathname: T) => {
   if (!initialTab) {
     return DefaultQuestValue.Tab;
   }
-  return initialTab;
+  return initialTab.name;
 }
 
 export const getQuestsByFilter = (quests: IQuest[], currentFilter: keyof typeof FilterDictionary) => {
-  return quests.filter((quest: IQuest) => quest.type === currentFilter)
+  return quests.filter((quest: IQuest) => {
+    const type = (quest.type[0].toUpperCase() + quest.type.slice(1)) as keyof typeof FilterDictionary;
+    return type === currentFilter;
+  });
 }
 
 export const getSettingsObject = (data: IPostData) => ({

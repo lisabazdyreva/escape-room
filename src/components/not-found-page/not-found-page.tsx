@@ -1,15 +1,11 @@
-import * as S from './not-found-page.styled';
-import {AppRoute} from '../../const';
-
+import { MainLayout, ErrorInformation } from '../common/common';
+import { ErrorMessage } from '../../const';
 
 const NotFoundPage = () => {
   return(
-    <S.WrapperNotFound>
-      <S.HeaderNotFound>Такой страницы не существует</S.HeaderNotFound>
-
-      <S.LinkToMain to={AppRoute.Home}>На главную</S.LinkToMain> {/*TODO стили для кнопки*/}
-    </S.WrapperNotFound>
+    <MainLayout>
+      <ErrorInformation message={ErrorMessage.NonExistPage}/>
+    </MainLayout>
   )
 }
-
 export default NotFoundPage;

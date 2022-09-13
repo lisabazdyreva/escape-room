@@ -1,4 +1,4 @@
-import * as S from '../quests-catalog/quests-catalog.styled';
+import * as S from './quest-filter.styled';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getFilteredQuests, setActiveFilter } from '../../../../store/actions/actions';

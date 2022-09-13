@@ -8,3 +8,5 @@ export { default as MainLayout } from './main-layout/main-layout';
 export { default as PageHeading } from './page-heading/page-heading';
 export { default as PageSubtext } from './page-subtext/page-subtext';
 export { default as PageTitle } from './page-title/page-title';
+export { default as Loading } from './loading/loading';
+export { default as ErrorInformation } from './error-information/error-information';

@@ -23,8 +23,9 @@ export const appTheme = {
     tangerine: '#F2890F',
     carrotOrange: '#F39425',
     eclipse: 'rgba(61, 51, 51, 0.96)',
+    darkerEclipse: 'rgba(59, 44, 44, 0.96)',
     pinkSwan: '#B8B8B8',
-    // neroTransition: 'rgba(0, 0, 0, 0.2)',  transparent
+    errorColor: 'rgba(133, 20, 5, 0.7)'
   },
 } as const;
 

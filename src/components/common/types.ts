@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 export interface ICommonProps {
-  children: ReactNode,
+  children?: ReactNode,
 }
 
 export interface ILinkProps {
@@ -9,3 +9,7 @@ export interface ILinkProps {
   $isDisabled?: boolean,
 }
 
+
+export interface ITryGetQuestsButton {
+  onClick: () => void,
+}

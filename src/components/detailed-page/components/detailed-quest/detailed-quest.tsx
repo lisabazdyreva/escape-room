@@ -1,44 +1,23 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useState } from 'react';
-import { MainLayout } from 'components/common/common';
-import { ReactComponent as IconClock } from '../../assets/img/icon-clock.svg';
-import { ReactComponent as IconPerson } from '../../assets/img/icon-person.svg';
-import { ReactComponent as IconPuzzle } from '../../assets/img/icon-puzzle.svg';
+import { ReactComponent as IconClock } from '../../../../assets/img/icon-clock.svg';
+import { ReactComponent as IconPerson } from '../../../../assets/img/icon-person.svg';
+import { ReactComponent as IconPuzzle } from '../../../../assets/img/icon-puzzle.svg';
 import * as S from './detailed-quest.styled';
-import { BookingModal } from './components/components';
+import { BookingModal } from '../components';
 
-import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchQuest } from '../../store/actions/api-actions';
+import { useSelector } from 'react-redux';
 
-import { getSelectedQuest } from '../../store/app-data/selectors';
-import { AppDispatch } from '../../store/store';
-import { setFetchStatusDetailedQuest } from '../../store/app-status/selectors';
-import Loading from '../loading/loading';
+import { getSelectedQuest } from '../../../../store/app-data/selectors';
 
-import { getPeopleCountText, getAltText, getQuestTypeText, getQuestLevelText } from '../../utils/utils';
-import { FetchStatus } from '../../const';
+
+import { getPeopleCountText, getAltText, getQuestTypeText, getQuestLevelText } from '../../../../utils/utils';
 
 
 const DetailedQuest = () => {
-  const fetchStatus = useSelector(setFetchStatusDetailedQuest);
-
-  const params: {id: string} = useParams();
-  const {id} = params;
-
-  const dispatch = useDispatch<AppDispatch>(); // TODO WHY
-
-  useEffect(() => {
-    dispatch(fetchQuest(Number(id)));
-  }, [id])
-
-
   const quest = useSelector(getSelectedQuest);
-
   const {title, description, type, duration, coverImg, peopleCount, level} = quest;
-
   const [isBookingModalOpened, setIsBookingModalOpened] = useState(false);
-
 
   const onBookingBtnClick = () => {
     setIsBookingModalOpened(true);
@@ -57,12 +36,7 @@ const DetailedQuest = () => {
   const altText = getAltText(title);
 
   return (
-    <MainLayout>
       <S.Main>
-      { fetchStatus === FetchStatus.Trying && <Loading /> }
-      { fetchStatus === FetchStatus.Success
-        &&
-        <>
           <S.PageImage
             src={imgSrc}
             alt={altText}
@@ -102,11 +76,7 @@ const DetailedQuest = () => {
           </S.PageContentWrapper>
 
           { isBookingModalOpened && <BookingModal onCloseModal={onCloseBtnClick}/> }
-
-        </>
-      }
       </S.Main>
-    </MainLayout>
   );
 };
 

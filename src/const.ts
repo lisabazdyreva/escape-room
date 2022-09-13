@@ -8,6 +8,9 @@ import { ReactComponent as IconScifi } from './assets/img/icon-scifi.svg';
 import { StyledSkypeIcon, StyledVkIcon } from './components/common/footer/footer.styled';
 
 export const MAP_URL = "https://yandex.ru/map-widget/v1/?um=constructor%3A84280bb39fa5f6946453c529c7eb0bd3236e31c1ed4bcd598b3764582f77c987&amp;source=constructor";
+export const POINT = '.';
+export const DOWNLOAD_MESSAGE = 'Идёт загрузка...';
+export const TIME_SHOWING_MODAL = 1500;
 
 export const BaseUrl = {
   Get: 'http://localhost:3001/quests',
@@ -23,7 +26,7 @@ export const BookingInputName = {
 export const BookingInputType = {
   Name: 'text',
   Phone: 'tel',
-  People: 'number',
+  People: 'text', // text bc safari caused bug
 } as const;
 
 export const BookingInputDictionary = {
@@ -39,29 +42,29 @@ export const BookingInputPlaceholder = {
 } as const;
 
 export const FilterToQuestType = {
-  adventures: 'adventures',
-  horrors: 'horror',
-  mystic: 'mystic',
-  detective: 'detective',
-  scifi: 'sci-fi',
+  Adventures: 'Adventures',
+  Horrors: 'Horror',
+  Mystic: 'Mystic',
+  Detective: 'Detective',
+  'Sci-fi': 'Sci-fi',
 } as const;
 
 export const FilterDictionary = {
-  allQuests: 'Все квесты',
-  adventures: 'Приключения',
-  horrors: 'Ужасы',
-  mystic: 'Мистика',
-  detective: 'Детектив',
-  scifi: 'Sci-fi'
+  AllQuests: 'Все квесты',
+  Adventures: 'Приключения',
+  Horrors: 'Ужасы',
+  Mystic: 'Мистика',
+  Detective: 'Детектив',
+  'Sci-fi': 'Sci-fi',
 } as const;
 
 export const FilterIcon = {
-  allQuests: IconAllQuests,
-  adventures: IconAdventures,
-  horrors: IconHorrors,
-  mystic: IconMystic,
-  detective: IconDetective,
-  scifi: IconScifi,
+  AllQuests: IconAllQuests,
+  Adventures: IconAdventures,
+  Horrors: IconHorrors,
+  Mystic: IconMystic,
+  Detective: IconDetective,
+  'Sci-fi': IconScifi,
 } as const;
 
 
@@ -78,8 +81,10 @@ export const initialQuest: IQuest = {
 };
 
 
-export const TextMessage = {
-  Error: 'Произошла ошибка, попробуйте позже.',
+export const ErrorMessage = {
+  QuestList: 'Произошла ошибка при загрузке списка квестов. Попробуйте позже.',
+  NonExistPage: 'Такой страницы не существует.',
+  DetailedQuest: 'Произошла ошибка при загрузке информации о квесте. Попробуйте позже.',
 } as const;
 
 
@@ -92,8 +97,10 @@ export const MinValue = {
 export const ValidationMessage = {
   Default: '',
   Name: `Имя должно содержать больше ${MinValue.Name} букв.`,
-  Phone: `Телефон состоит из ${MinValue.Phone} символов.`,
-  PeopleCount: `Минимальное количество участников: ${MinValue.PeopleCount}.`,
+  Phone: `Телефон состоит из ${MinValue.Phone} цифр.`,
+  PhoneIsNumbers: `Укажите телефон цифрами.`,
+  PeopleCount: `Минимальное число участников: ${MinValue.PeopleCount}.`,
+  PeopleCountIsInteger: 'Количество участников - целое число',
 } as const;
 
 export const Contact = {
@@ -128,7 +135,7 @@ export const DefaultQuestValue = {
   Tab: 'Quests',
   Empty: '',
   Duration: 0,
-  Filter: 'allQuests'
+  Filter: 'AllQuests'
 } as const;
 
 export const MenuDictionary = {
@@ -148,17 +155,17 @@ export const MenuLink = {
 } as const;
 
 export const TypeDictionary = {
-  adventures: 'Приключения',
-  horror: 'Ужасы',
-  mystic: 'Мистика',
-  detective: 'Детектив',
-  'sci-fi': 'Sci-fi',
+  Adventures: 'Приключения',
+  Horror: 'Ужасы',
+  Mystic: 'Мистика',
+  Detective: 'Детектив',
+  'Sci-fi': 'Sci-fi',
 } as const;
 
 export const LevelDictionary = {
-  easy: 'простой', // TODO small letters
-  medium: 'средний',
-  hard: 'сложный',
+  Easy: 'простой',
+  Medium: 'средний',
+  Hard: 'сложный',
 } as const;
 
 export const Duration = {
@@ -173,3 +180,15 @@ export enum FetchStatus {
   Error = 'error',
   Default = 'default',
 }
+
+export const BookingInputTitle = {
+  Name: ValidationMessage.Name,
+  Phone: ValidationMessage.Phone,
+  People: ValidationMessage.PeopleCount,
+} as const;
+
+export const BookingMessage = {
+  Success: 'Форма успешно отправлена',
+  Error: 'Произошла ошибка при отправке формы. Попробуйте позже.',
+  Loading: 'Подождите, идёт отправка формы...',
+} as const;

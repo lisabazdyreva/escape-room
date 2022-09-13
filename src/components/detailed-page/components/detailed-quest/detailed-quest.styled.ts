@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Button } from 'components/common/common';
+import { IQuestBookingBtn } from '../../../types';
 
 const Main = styled.main`
   max-width: 680px;
@@ -7,6 +8,7 @@ const Main = styled.main`
   margin-bottom: 149px;
   margin-left: 43.92vw;
 `;
+
 
 const PageImage = styled.img`
   z-index: 1;
@@ -111,9 +113,6 @@ const QuestDescription = styled.p`
   letter-spacing: 0.013em;
 `;
 
-interface IQuestBookingBtn {
-  onClick: () => void;
-}
 
 const QuestBookingBtn = styled(Button).attrs({ type: 'button' })<IQuestBookingBtn>`
   margin-left: 2px;

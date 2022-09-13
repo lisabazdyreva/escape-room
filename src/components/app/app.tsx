@@ -5,7 +5,6 @@ import {
   BrowserRouter as Router,
 } from '../common/common';
 
-import DetailedQuest from '../detailed-quest/detailed-quest';
 import Contacts from '../contacts/contacts';
 import Home from '../home/home';
 import NotFoundPage from '../not-found-page/not-found-page';
@@ -14,6 +13,7 @@ import { appTheme } from './common';
 import * as S from './app.styled';
 
 import { AppRoute } from '../../const';
+import DetailedPage from '../detailed-page/detailed-page';
 
 
 const App = () => {
@@ -23,7 +23,7 @@ const App = () => {
       <Router>
         <Switch>
           <Route exact path={`${AppRoute.DetailedQuest}:id`}>
-            <DetailedQuest />
+            <DetailedPage />
           </Route>
           <Route exact path={AppRoute.Contacts}>
             <Contacts />

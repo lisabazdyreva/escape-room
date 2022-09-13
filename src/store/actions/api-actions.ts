@@ -11,15 +11,13 @@ import { BaseUrl, FetchStatus } from '../../const';
 import { IPostData } from '../../types/types';
 import { getSettingsObject } from '../../utils/utils';
 
-const fetchQuests = function() :ThunkActionResult {
+export const fetchQuests = function() :ThunkActionResult {
   return async (dispatch, _getState): Promise<void> => {
     dispatch(setFetchStatusQuests(FetchStatus.Trying))
      await fetch(BaseUrl.Get)
        .then((response) => {
          if (response.ok) {
            return response.json();
-         } else {
-           throw new Error();
          }
        })
        .then((result) => {
@@ -33,15 +31,13 @@ const fetchQuests = function() :ThunkActionResult {
   }
 }
 
-const fetchQuest = function( id: number) :ThunkActionResult {
+export const fetchQuest = function( id: number) :ThunkActionResult {
   return async (dispatch, _getState): Promise<void> => {
     dispatch(setFetchStatusDetailedQuest(FetchStatus.Trying))
     await fetch(`${BaseUrl.Get}/${id}`)
       .then((response) => {
         if (response.ok) {
           return response.json();
-        } else {
-          throw new Error();
         }
       })
       .then((result) => {
@@ -54,7 +50,7 @@ const fetchQuest = function( id: number) :ThunkActionResult {
   }
 }
 
-const postOrder = function(data: IPostData) :ThunkActionResult {
+export const postOrder = function(data: IPostData) :ThunkActionResult {
   return async (dispatch, _getState): Promise<void> => {
     dispatch(setPostOrderStatus(FetchStatus.Trying));
     const settingsObject = getSettingsObject(data);
@@ -64,14 +60,8 @@ const postOrder = function(data: IPostData) :ThunkActionResult {
       .then((data) => {
         if (data === 201) {
           dispatch(setPostOrderStatus(FetchStatus.Success));
-        } else {
-          throw new Error();
         }
       })
       .catch(() => dispatch(setPostOrderStatus(FetchStatus.Error)));
   }
 }
-
-export {fetchQuests, fetchQuest, postOrder};
-
-

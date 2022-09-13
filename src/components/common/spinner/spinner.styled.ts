@@ -21,10 +21,12 @@ const Spinner = styled.div`
   width: 74px;
   height: 74px;
   border-radius: 50%;
+  margin: 0 auto;
 `;
 
 const SpinnerWrapper = styled.div`
-  align-self: center;
+  text-align: center;
+  padding-top: 20px;
 `;
 
 const SpinnerHeader = styled.h3`
