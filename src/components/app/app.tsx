@@ -1,18 +1,18 @@
-import { ThemeProvider} from 'styled-components';
+import { ThemeProvider } from 'styled-components';
+import * as S from './app.styled';
+
 import {
   Switch,
   Route,
   BrowserRouter as Router,
 } from '../common/common';
 
+import { appTheme } from './common';
+import { AppRoute } from '../../const';
+
 import Contacts from '../contacts/contacts';
 import Home from '../home/home';
 import NotFoundPage from '../not-found-page/not-found-page';
-
-import { appTheme } from './common';
-import * as S from './app.styled';
-
-import { AppRoute } from '../../const';
 import DetailedPage from '../detailed-page/detailed-page';
 
 

@@ -1,3 +1,12 @@
+import React from 'react';
+import { useSelector } from 'react-redux';
+
+import * as S from './home.styled';
+
+import { FetchStatus, ErrorMessage, DOWNLOAD_MESSAGE } from '../../const';
+
+import { setFetchStatusQuests } from '../../store/app-status/selectors';
+
 import {
   MainLayout,
   PageTitle,
@@ -5,11 +14,7 @@ import {
   PageSubtext, Loading, ErrorInformation,
 } from 'components/common/common';
 import { QuestsCatalog, QuestsFilter } from './components/components';
-import * as S from './home.styled';
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { setFetchStatusQuests } from '../../store/app-status/selectors';
-import { FetchStatus, ErrorMessage, DOWNLOAD_MESSAGE } from '../../const';
+
 
 const HomePage = () => {
   const fetchStatusQuests = useSelector(setFetchStatusQuests);

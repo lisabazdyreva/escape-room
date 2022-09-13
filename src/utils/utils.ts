@@ -1,6 +1,5 @@
 import {
   IPostData,
-  IQuest,
   LevelType,
   QuestType,
 } from '../types/types';
@@ -19,8 +18,9 @@ import {
   FilterIcon, DefaultQuestValue,
   SocialDictionary,
   SocialIcon,
-  SocialLink, BookingInputTitle,
+  SocialLink
 } from '../const';
+
 
 const inputNames = Object.keys(BookingInputName);
 
@@ -28,7 +28,6 @@ const inputTitles = Object.values(BookingInputName);
 const inputTypes = Object.values(BookingInputType);
 const inputPlaceholders = Object.values(BookingInputPlaceholder);
 const inputLabels = Object.values(BookingInputDictionary);
-const inputTooltips = Object.values(BookingInputTitle);
 
 const getBookingInputs = () => inputNames.map((inputName, index) => {
   const name = inputName as keyof typeof BookingInputName;
@@ -38,7 +37,6 @@ const getBookingInputs = () => inputNames.map((inputName, index) => {
     type: inputTypes[index],
     translationPlaceholder: inputPlaceholders[index],
     translationLabel: inputLabels[index],
-    tooltipText: inputTooltips[index],
   })
 });
 
@@ -92,7 +90,7 @@ const filterTranslations = Object.values(FilterDictionary);
 const filterIcons = Object.values(FilterIcon);
 
 
-const getFilterValues = () => filterNames.map((filterName, index) => {
+const getFilters = () => filterNames.map((filterName, index) => {
   const name = (filterName[0] + filterName.slice(1)) as keyof typeof FilterDictionary;
   const rusName = filterTranslations[index];
   const icon = filterIcons[index];
@@ -103,10 +101,9 @@ const getFilterValues = () => filterNames.map((filterName, index) => {
   });
 })
 
-export const filters = getFilterValues();
+export const filters = getFilters();
 
 const filtersToQuestTypes = Object.entries(FilterToQuestType);
-
 export const getQuestTypeName = (filter: keyof typeof FilterDictionary) => {
   const findTypeName = filtersToQuestTypes.find(([filterType]) => filterType  === filter);
   if (!findTypeName) {
@@ -153,13 +150,6 @@ export const getInitialCurrentTab = <T>(pathname: T) => {
   return initialTab.name;
 }
 
-export const getQuestsByFilter = (quests: IQuest[], currentFilter: keyof typeof FilterDictionary) => {
-  return quests.filter((quest: IQuest) => {
-    const type = (quest.type[0].toUpperCase() + quest.type.slice(1)) as keyof typeof FilterDictionary;
-    return type === currentFilter;
-  });
-}
-
 export const getSettingsObject = (data: IPostData) => ({
   method: 'POST',
   headers: {
@@ -169,3 +159,5 @@ export const getSettingsObject = (data: IPostData) => ({
 });
 
 export const downloadQuests = () => store.dispatch(fetchQuests());
+
+export const isEsc = (code: string) => code === 'Escape' || code === 'Esc';

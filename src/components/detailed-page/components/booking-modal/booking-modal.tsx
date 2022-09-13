@@ -1,15 +1,19 @@
-import { BookingForm, BookingModalInformation } from '../components';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { setPostOrderStatus as setPostOrderStatusSelector } from '../../../../store/app-status/selectors';
+
 import { FetchStatus, BookingMessage } from '../../../../const';
+
+import { setPostOrderStatus as setPostOrderStatusSelector } from '../../../../store/app-status/selectors';
+
+import { BookingForm, BookingModalInformation } from '../components';
 
 
 interface IBookingModalProps {
-  onCloseModal: () => void,
+  onModalClose: () => void,
 }
 
-const BookingModal = ({onCloseModal}: IBookingModalProps) =>  {
+
+const BookingModal = ({onModalClose}: IBookingModalProps) =>  {
   const loadingPostStatus = useSelector(setPostOrderStatusSelector);
 
   const isPostStatusDefault = loadingPostStatus === FetchStatus.Default;
@@ -19,7 +23,7 @@ const BookingModal = ({onCloseModal}: IBookingModalProps) =>  {
 
   return (
       <>
-        { isPostStatusDefault && <BookingForm closeHandler={onCloseModal} />}
+        { isPostStatusDefault && <BookingForm onModalClose={onModalClose} />}
 
         { isPostStatusTrying && <BookingModalInformation message={BookingMessage.Loading} isLoading={true}/>}
 

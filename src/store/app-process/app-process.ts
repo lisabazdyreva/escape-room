@@ -1,9 +1,9 @@
 import { createReducer } from '@reduxjs/toolkit';
+
 import { getFilteredQuests, setActiveFilter, setInitialFilteredQuests } from '../actions/actions';
 import { AppProcess } from '../../types/state';
 
-import { DefaultQuestValue } from '../../const';
-import { getQuestsByFilter } from '../../utils/utils';
+import { DefaultQuestValue, FilterDictionary } from '../../const';
 
 
 const initialState: AppProcess = {
@@ -11,6 +11,7 @@ const initialState: AppProcess = {
   filteredQuests: [],
   activeFilter: DefaultQuestValue.Filter,
 }
+
 
 export const appProcess = createReducer(initialState, (builder) => {
   builder
@@ -24,6 +25,9 @@ export const appProcess = createReducer(initialState, (builder) => {
     .addCase(getFilteredQuests, (state, action) => {
       state.filteredQuests = action.payload === DefaultQuestValue.Filter
         ? state.initialFilteredQuests
-        : getQuestsByFilter(state.initialFilteredQuests, action.payload);
+        : state.initialFilteredQuests.filter((quest) => {
+          const type = (quest.type[0].toUpperCase() + quest.type.slice(1)) as keyof typeof FilterDictionary;
+          return type === action.payload;
+        });
     })
 });

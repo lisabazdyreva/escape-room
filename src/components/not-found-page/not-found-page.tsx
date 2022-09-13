@@ -1,6 +1,7 @@
 import { MainLayout, ErrorInformation } from '../common/common';
 import { ErrorMessage } from '../../const';
 
+
 const NotFoundPage = () => {
   return(
     <MainLayout>

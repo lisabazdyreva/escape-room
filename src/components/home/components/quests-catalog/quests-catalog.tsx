@@ -1,14 +1,12 @@
 import React from 'react';
-
-import * as S from './quests-catalog.styled';
-import {QuestItem} from '../components';
-
 import { useSelector } from 'react-redux';
+import * as S from './quests-catalog.styled';
+
 import { getFilteredQuests } from '../../../../store/app-process/selectors';
+import { QuestItem } from '../components';
 
 
-
-const QuestsCatalog: React.FC = () => {
+const QuestsCatalog = () => {
   const filteredQuests = useSelector(getFilteredQuests);
   return (
     <S.QuestsList>

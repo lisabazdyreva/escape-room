@@ -5,8 +5,7 @@ const BookingField = styled.p`
   flex-direction: column;
 
   margin: 0;
-  padding: 0;
-  padding-right: 16px;
+  padding: 0 16px 0 0;
 
   &:not(:last-of-type) {
     margin-bottom: 30px;
@@ -19,10 +18,7 @@ const BookingLabel = styled.label`
 `;
 
 const BookingInput = styled.input`
-  padding-top: 17px;
-  padding-right: 24px;
-  padding-bottom: 18px;
-  padding-left: 23px;
+  padding: 17px 24px 18px 23px;
 
   font-family: inherit;
 

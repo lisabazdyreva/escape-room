@@ -11,10 +11,8 @@ const BookingSubmit = styled(Button).attrs({type: 'submit'})`
   align-self: center;
   margin-top: 55px;
   margin-bottom: 21px;
-  padding-top: 15px;
-  padding-right: 34px;
-  padding-bottom: 16px;
-  padding-left: 34px;
+
+  padding: 15px 34px 16px 34px;
 
   font-size: ${({ theme }) => theme.font.semibase};
   line-height: 16px;

@@ -2,7 +2,9 @@ import { createAction } from '@reduxjs/toolkit';
 
 import {ActionType} from '../../types/action';
 import { IQuest } from '../../types/types';
+
 import { FetchStatus, FilterDictionary } from '../../const';
+
 
 export const getQuests = createAction(
   ActionType.GetQuests,

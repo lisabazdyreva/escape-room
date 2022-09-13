@@ -1,6 +1,7 @@
 import { ChangeEvent } from 'react';
 import { MinValue, POINT, ValidationMessage } from '../const';
 
+
 export const checkNameValidity = (evt: ChangeEvent<HTMLInputElement>) => {
   const value = evt.target.value;
   if (value.length < MinValue.Name) {
@@ -20,12 +21,14 @@ export const checkPhoneValidity = (value: string, evt: ChangeEvent<HTMLInputElem
   }
 }
 
-const isNotInteger = (value: string) => {
+const checkIsNotInteger = (value: string) => {
   return Number(value) !== parseInt(value) || value[value.length - 1] === POINT;
 }
 
 export const checkPeopleCountValidity = (value: string, evt: ChangeEvent<HTMLInputElement>) => {
-  if (isNotInteger(value)) {
+  const isNotInteger = checkIsNotInteger(value);
+
+  if (isNotInteger) {
     evt.target.setCustomValidity(ValidationMessage.PeopleCountIsInteger);
   } else if (Number(value) < MinValue.PeopleCount) {
     evt.target.setCustomValidity(ValidationMessage.PeopleCount);

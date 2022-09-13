@@ -1,16 +1,14 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+
+import * as S from './detailed-quest.styled';
+
 import { ReactComponent as IconClock } from '../../../../assets/img/icon-clock.svg';
 import { ReactComponent as IconPerson } from '../../../../assets/img/icon-person.svg';
 import { ReactComponent as IconPuzzle } from '../../../../assets/img/icon-puzzle.svg';
-import * as S from './detailed-quest.styled';
-import { BookingModal } from '../components';
-
-import { useSelector } from 'react-redux';
 
 import { getSelectedQuest } from '../../../../store/app-data/selectors';
-
-
+import { BookingModal } from '../components';
 import { getPeopleCountText, getAltText, getQuestTypeText, getQuestLevelText } from '../../../../utils/utils';
 
 
@@ -19,11 +17,11 @@ const DetailedQuest = () => {
   const {title, description, type, duration, coverImg, peopleCount, level} = quest;
   const [isBookingModalOpened, setIsBookingModalOpened] = useState(false);
 
-  const onBookingBtnClick = () => {
+  const handleButtonClick = () => {
     setIsBookingModalOpened(true);
   };
 
-  const onCloseBtnClick = () => {
+  const onModalCloseClick = () => {
     setIsBookingModalOpened(false);
   }
 
@@ -69,13 +67,13 @@ const DetailedQuest = () => {
                 {description}
               </S.QuestDescription>
 
-              <S.QuestBookingBtn onClick={onBookingBtnClick}>
+              <S.QuestBookingBtn onClick={handleButtonClick}>
                 Забронировать
               </S.QuestBookingBtn>
             </S.PageDescription>
           </S.PageContentWrapper>
 
-          { isBookingModalOpened && <BookingModal onCloseModal={onCloseBtnClick}/> }
+          { isBookingModalOpened && <BookingModal onModalClose={onModalCloseClick}/> }
       </S.Main>
   );
 };

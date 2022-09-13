@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Button, Container, Link as RouterLink, PageTitle } from '../common';
 import { ITryGetQuestsButton } from '../types';
 
+
 const Main = styled(Container)`
   max-width: 1080px;
   margin-top: 120px;

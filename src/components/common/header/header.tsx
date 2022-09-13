@@ -1,11 +1,12 @@
-import logo from 'assets/img/logo.svg';
-import * as S from './header.styled';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import * as S from './header.styled';
+
+import logo from 'assets/img/logo.svg';
 import { AppRoute, Contact } from '../../../const';
 
-import { menuItems } from '../../../utils/utils';
-import { getInitialCurrentTab } from '../../../utils/utils';
+import { getInitialCurrentTab, menuItems } from '../../../utils/utils';
+
 
 const Header = () => {
   const {pathname} = useLocation();

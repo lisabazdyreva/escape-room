@@ -5,10 +5,12 @@ import { AppData } from '../../types/state';
 
 import { initialQuest } from '../../const';
 
+
 const initialState: AppData = {
   quests: [],
   selectedQuest: initialQuest,
 }
+
 
 export const appData = createReducer(initialState, (builder) => {
   builder
@@ -19,5 +21,3 @@ export const appData = createReducer(initialState, (builder) => {
       state.selectedQuest = action.payload
     })
 });
-
-

@@ -1,7 +1,7 @@
-import {Action} from 'redux';
-import { ThunkAction} from '@reduxjs/toolkit';
+import { Action } from 'redux';
+import { ThunkAction } from '@reduxjs/toolkit';
 import { State } from './state';
-
+import { store } from '../index';
 
 export enum ActionType {
   GetQuests = 'data/getQuests',
@@ -14,4 +14,4 @@ export enum ActionType {
   SetPostOrderStatus = 'status/setPostOrderStatus'
 }
 export type ThunkActionResult<P = Promise<void>> = ThunkAction<P, State, unknown, Action>;
-// TODO unknown
+export type AppDispatch = typeof store.dispatch;

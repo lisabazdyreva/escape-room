@@ -1,14 +1,17 @@
-import { AppStatus } from '../../types/state';
 import { createReducer } from '@reduxjs/toolkit';
+
+import { AppStatus } from '../../types/state';
 import { setFetchStatusDetailedQuest, setFetchStatusQuests, setPostOrderStatus } from '../actions/actions';
 
 import { FetchStatus } from '../../const';
+
 
 const initialState: AppStatus = {
   fetchStatusQuests: FetchStatus.Default,
   fetchStatusDetailedQuest: FetchStatus.Default,
   postOrderStatus: FetchStatus.Default,
 }
+
 
 export const appStatus = createReducer(initialState, builder => {
   builder

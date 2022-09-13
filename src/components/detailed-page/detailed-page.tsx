@@ -1,15 +1,17 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { setFetchStatusDetailedQuest } from '../../store/app-status/selectors';
-import { FetchStatus, ErrorMessage, DOWNLOAD_MESSAGE } from '../../const';
-import { Loading } from '../common/common';
 import React, { useEffect } from 'react';
-import {DetailedQuest} from './components/components';
-import {MainLayout} from '../common/common';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { AppDispatch } from '../../store/store';
-import { fetchQuest } from '../../store/actions/api-actions';
 
-import {ErrorInformation}from '../common/common';
+import { FetchStatus, ErrorMessage, DOWNLOAD_MESSAGE } from '../../const';
+
+import { DetailedQuest } from './components/components';
+import { MainLayout, ErrorInformation, Loading } from '../common/common';
+
+import { AppDispatch } from '../../types/action';
+import { fetchQuest } from '../../store/actions/api-actions';
+import { setFetchStatusDetailedQuest as setFetchStatusDetailedQuestSelector } from '../../store/app-status/selectors';
+import { setFetchStatusDetailedQuest } from '../../store/actions/actions';
+
 
 const DetailedPage = () => {
   const params: {id: string} = useParams();
@@ -18,11 +20,19 @@ const DetailedPage = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(fetchQuest(Number(id)));
+    let isMounted = true;
+
+    if (isMounted) {
+      dispatch(fetchQuest(Number(id)))
+        .then(() => dispatch(setFetchStatusDetailedQuest(FetchStatus.Success)));
+    }
+
+    return () => {
+      isMounted = false;
+    }
   }, [id, dispatch])
 
-
-  const fetchStatus = useSelector(setFetchStatusDetailedQuest);
+  const fetchStatus = useSelector(setFetchStatusDetailedQuestSelector);
 
   const isTryingGetQuest = fetchStatus === FetchStatus.Trying;
   const isSuccessGetQuest = fetchStatus === FetchStatus.Success;

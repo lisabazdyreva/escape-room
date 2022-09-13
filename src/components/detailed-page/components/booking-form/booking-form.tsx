@@ -1,27 +1,50 @@
+import React, {FormEvent, useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
 import * as S from './booking-form.styled';
 import * as SM from '../booking-modal/booking-modal.styled';
 
-import React, {FormEvent, useState } from 'react';
-import {BookingField} from '../components';
-import { useDispatch } from 'react-redux';
-import { postOrder } from '../../../../store/actions/api-actions';
-import { AppDispatch } from '../../../../store/store';
-
-import { BookingInputName, TIME_SHOWING_MODAL } from '../../../../const';
-import { bookingInputs } from '../../../../utils/utils';
-import {  FetchStatus } from '../../../../const';
-import { setPostOrderStatus } from '../../../../store/actions/actions';
 import { ReactComponent as IconClose } from '../../../../assets/img/icon-close.svg';
+import { BookingInputName, TIME_SHOWING_MODAL, FetchStatus } from '../../../../const';
+
+import { postOrder } from '../../../../store/actions/api-actions';
+import { AppDispatch } from '../../../../types/action';
+import { setPostOrderStatus } from '../../../../store/actions/actions';
+
+import { bookingInputs, isEsc } from '../../../../utils/utils';
+
+import {BookingField} from '../components';
 
 
 type Title = typeof BookingInputName[keyof typeof BookingInputName];
 
 interface IBookingFormProps {
-  closeHandler: () => void,
+  onModalClose: () => void,
 }
 
 
-const BookingForm = ({closeHandler}: IBookingFormProps) => {
+const BookingForm = ({onModalClose}: IBookingFormProps) => {
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const handleEscapeKeyPress = (evt: KeyboardEvent) => {
+      if (isEsc(evt.code)) {
+        onModalClose();
+      }
+    }
+
+    if (isMounted) {
+      document.addEventListener('keydown', handleEscapeKeyPress);
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKeyPress);
+      isMounted = false;
+    }
+  }, [onModalClose]);
+
+
   const dispatch = useDispatch<AppDispatch>();
 
   const [name, setName] = useState('');
@@ -29,7 +52,8 @@ const BookingForm = ({closeHandler}: IBookingFormProps) => {
   const [peopleCount, setPeopleCount] = useState('');
   const [isLegal, setIsLegal] = useState(false);
 
-  const onFormSubmit = (evt: FormEvent) => {
+
+  const handleFormSubmit = (evt: FormEvent) => {
     evt.preventDefault();
 
     dispatch(postOrder({
@@ -40,11 +64,15 @@ const BookingForm = ({closeHandler}: IBookingFormProps) => {
     }))
       .then(() => {
         setTimeout(() => {
-          closeHandler();
+          onModalClose();
           dispatch(setPostOrderStatus(FetchStatus.Default));
         }, TIME_SHOWING_MODAL);
       });
 
+  }
+
+  const handleCheckboxChange = () => {
+    setIsLegal(!isLegal);
   }
 
   const getValueState = (title: Title) => {
@@ -58,7 +86,7 @@ const BookingForm = ({closeHandler}: IBookingFormProps) => {
     }
   }
 
-  const getChangeHandler = (title: Title) => {
+  const getChangeValueHandler = (title: Title) => {
     switch (title) {
       case BookingInputName.Name:
         return setName;
@@ -72,7 +100,7 @@ const BookingForm = ({closeHandler}: IBookingFormProps) => {
   return (
     <SM.BlockLayer>
       <SM.Modal>
-        <SM.ModalCloseBtn onClick={closeHandler}>
+        <SM.ModalCloseBtn onClick={onModalClose}>
           <IconClose width="16" height="16" />
           <SM.ModalCloseLabel>Закрыть окно</SM.ModalCloseLabel>
         </SM.ModalCloseBtn>
@@ -81,20 +109,20 @@ const BookingForm = ({closeHandler}: IBookingFormProps) => {
           action="https://echo.htmlacademy.ru"
           method="post"
           id="booking-form"
-          onSubmit={onFormSubmit}
+          onSubmit={handleFormSubmit}
         >
 
           {
             bookingInputs.map((bookingFieldData, index) => {
               const value = getValueState(bookingFieldData.title);
-              const onChangeHandler = getChangeHandler(bookingFieldData.title);
+              const onChangeHandler = getChangeValueHandler(bookingFieldData.title);
               const key = `${bookingFieldData.name} ${index}`;
 
               return <BookingField
                 key={key}
                 textInformation={bookingFieldData}
-                handler={onChangeHandler}
-                value={value}
+                onInputChange={onChangeHandler}
+                stateValue={value}
               />
             })
           }
@@ -105,9 +133,9 @@ const BookingForm = ({closeHandler}: IBookingFormProps) => {
               type="checkbox"
               id="booking-legal"
               name="booking-legal"
-              required
               checked={isLegal}
-              onChange={() => setIsLegal(!isLegal)}
+              onChange={handleCheckboxChange}
+              required
             />
             <S.BookingCheckboxLabel
               className="checkbox-label"
@@ -124,8 +152,7 @@ const BookingForm = ({closeHandler}: IBookingFormProps) => {
           </S.BookingCheckboxWrapper>
         </S.BookingForm>
       </SM.Modal>
-  </SM.BlockLayer>
-
+    </SM.BlockLayer>
   );
 }
 

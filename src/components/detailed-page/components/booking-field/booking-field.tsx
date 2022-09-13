@@ -1,38 +1,43 @@
+import React, { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import * as S from './booking-field.styled';
-import React, { ChangeEvent } from 'react';
-import { BookingInputName} from '../../../../const';
-import { checkNameValidity, checkPeopleCountValidity, checkPhoneValidity } from '../../../../utils/validation-utils';
 
-import {Dispatch, SetStateAction} from 'react';
+import {
+  BOOKING,
+  BookingInputDictionary,
+  BookingInputName,
+  BookingInputPlaceholder,
+  BookingInputType,
+} from '../../../../const';
+import { checkNameValidity, checkPeopleCountValidity, checkPhoneValidity } from '../../../../utils/validation-utils';
 
 
 interface IBookingFieldProps {
   textInformation: {
-    title: string,
-    type: string,
-    translationLabel: string,
-    translationPlaceholder: string,
-    tooltipText: string,
+    title: typeof BookingInputName[keyof typeof BookingInputName],
+    type: typeof BookingInputType[keyof typeof BookingInputType],
+    translationLabel: typeof BookingInputDictionary[keyof typeof BookingInputDictionary],
+    translationPlaceholder: typeof BookingInputPlaceholder[keyof typeof BookingInputPlaceholder],
   },
-  handler: Dispatch<SetStateAction<string>>,
-  value:  string,
+  onInputChange: Dispatch<SetStateAction<string>>,
+  stateValue: string,
 }
 
-const BookingField = (props: IBookingFieldProps) => {
-  const {title, type, translationLabel, translationPlaceholder, tooltipText} = props.textInformation;
 
-  const attrValue = `booking-${title}`;
+const BookingField = ({textInformation, onInputChange, stateValue}: IBookingFieldProps) => {
+  const { title, type, translationLabel, translationPlaceholder } = textInformation;
+  const attributeValue = `${BOOKING}-${title}`;
 
-  const changeInputHandler = (evt: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const value = evt.target.value;
 
     if (title === BookingInputName.Name) {
       checkNameValidity(evt);
-      props.handler(value);
+      onInputChange(value);
       return;
     }
 
     const valueNonSpaces = value.trim();
+
     if (!isNaN(Number(valueNonSpaces))) {
 
       if (title === BookingInputName.Phone) {
@@ -42,21 +47,20 @@ const BookingField = (props: IBookingFieldProps) => {
       if (title === BookingInputName.People) {
         checkPeopleCountValidity(valueNonSpaces, evt);
       }
-      props.handler(valueNonSpaces);
+      onInputChange(valueNonSpaces);
     }
   }
 
   return (
     <S.BookingField>
-      <S.BookingLabel htmlFor={attrValue}>{translationLabel}</S.BookingLabel>
+      <S.BookingLabel htmlFor={attributeValue}>{translationLabel}</S.BookingLabel>
         <S.BookingInput
           type={type}
-          id={attrValue}
-          name={attrValue}
+          id={attributeValue}
+          name={attributeValue}
           placeholder={translationPlaceholder}
-          onChange={changeInputHandler}
-          value={props.value}
-          title={tooltipText}
+          onChange={handleInputChange}
+          value={stateValue}
           required
           autoComplete='off'
         />

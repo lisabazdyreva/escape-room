@@ -33,4 +33,4 @@ const SpinnerHeader = styled.h3`
   padding-top: 10px;
 `;
 
-export {Spinner, SpinnerWrapper, SpinnerHeader};
+export { Spinner, SpinnerWrapper, SpinnerHeader };

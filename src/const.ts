@@ -7,10 +7,13 @@ import { ReactComponent as IconDetective } from './assets/img/icon-detective.svg
 import { ReactComponent as IconScifi } from './assets/img/icon-scifi.svg';
 import { StyledSkypeIcon, StyledVkIcon } from './components/common/footer/footer.styled';
 
+
 export const MAP_URL = "https://yandex.ru/map-widget/v1/?um=constructor%3A84280bb39fa5f6946453c529c7eb0bd3236e31c1ed4bcd598b3764582f77c987&amp;source=constructor";
 export const POINT = '.';
 export const DOWNLOAD_MESSAGE = 'Идёт загрузка...';
 export const TIME_SHOWING_MODAL = 1500;
+export const BOOKING = 'booking';
+export const RESPONSE_POST_SUCCESS = 201;
 
 export const BaseUrl = {
   Get: 'http://localhost:3001/quests',
@@ -180,12 +183,6 @@ export enum FetchStatus {
   Error = 'error',
   Default = 'default',
 }
-
-export const BookingInputTitle = {
-  Name: ValidationMessage.Name,
-  Phone: ValidationMessage.Phone,
-  People: ValidationMessage.PeopleCount,
-} as const;
 
 export const BookingMessage = {
   Success: 'Форма успешно отправлена',

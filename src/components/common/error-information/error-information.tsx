@@ -1,7 +1,10 @@
+import React from 'react';
+
 import * as S from './error-information.styled';
+
 import { AppRoute, ErrorMessage } from '../../../const';
 import { downloadQuests } from '../../../utils/utils';
-import React from 'react';
+
 
 interface INotFound {
   message: typeof ErrorMessage[keyof typeof ErrorMessage],

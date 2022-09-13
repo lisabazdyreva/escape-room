@@ -2,6 +2,7 @@ import { IQuest } from './types';
 import { FetchStatus, FilterDictionary } from '../const';
 import { RootState } from '../store/root-reducer';
 
+
 export type AppData = {
   quests: IQuest[],
   selectedQuest: IQuest,

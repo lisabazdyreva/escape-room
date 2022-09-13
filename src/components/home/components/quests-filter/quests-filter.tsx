@@ -1,11 +1,13 @@
+import { useDispatch, useSelector } from 'react-redux';
+
 import * as S from './quest-filter.styled';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { FetchStatus, FilterDictionary } from '../../../../const';
+
 import { getFilteredQuests, setActiveFilter } from '../../../../store/actions/actions';
 import { setActiveFilter as activeFilterSelector} from '../../../../store/app-process/selectors';
 import { setFetchStatusQuests as setFetchStatusQuestsSelector } from '../../../../store/app-status/selectors';
 
-import { FetchStatus, FilterDictionary } from '../../../../const';
 import { filters, getQuestTypeName } from '../../../../utils/utils';
 
 
@@ -15,8 +17,10 @@ const QuestsFilter = () => {
   const loadingStatus = useSelector(setFetchStatusQuestsSelector);
   const activeFilter = useSelector(activeFilterSelector);
 
-  const clickHandler = (filter: keyof typeof FilterDictionary) => {
-    if (loadingStatus === FetchStatus.Success) {
+  const isQuestsLoadedSuccess = loadingStatus === FetchStatus.Success;
+
+  const handleClickTab = (filter: keyof typeof FilterDictionary) => {
+    if (isQuestsLoadedSuccess) {
       dispatch(setActiveFilter(filter));
       const questType = getQuestTypeName(filter);
       dispatch(getFilteredQuests(questType));
@@ -30,8 +34,8 @@ const QuestsFilter = () => {
 
         return ( <S.TabItem key={name} >
           <S.TabBtn
-            onClick={ () => clickHandler(name) }
-            disabled={ loadingStatus !== FetchStatus.Success }
+            onClick={ () => handleClickTab(name) }
+            disabled={ ! isQuestsLoadedSuccess  }
             isActive={ activeFilter === name }
           >
             <DynamicIcon />
@@ -41,6 +45,7 @@ const QuestsFilter = () => {
           </S.TabBtn>
         </S.TabItem>);
       })}
+
     </S.Tabs>
   );
 }

@@ -9,7 +9,6 @@ export interface ILinkProps {
   $isDisabled?: boolean,
 }
 
-
 export interface ITryGetQuestsButton {
   onClick: () => void,
 }

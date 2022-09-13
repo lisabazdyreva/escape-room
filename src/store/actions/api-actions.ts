@@ -7,9 +7,10 @@ import {
   setInitialFilteredQuests, setPostOrderStatus,
 } from './actions';
 
-import { BaseUrl, FetchStatus } from '../../const';
+import { BaseUrl, FetchStatus, RESPONSE_POST_SUCCESS } from '../../const';
 import { IPostData } from '../../types/types';
 import { getSettingsObject } from '../../utils/utils';
+
 
 export const fetchQuests = function() :ThunkActionResult {
   return async (dispatch, _getState): Promise<void> => {
@@ -20,9 +21,9 @@ export const fetchQuests = function() :ThunkActionResult {
            return response.json();
          }
        })
-       .then((result) => {
-         dispatch(getQuests(result));
-         dispatch(setInitialFilteredQuests(result));
+       .then((data) => {
+         dispatch(getQuests(data));
+         dispatch(setInitialFilteredQuests(data));
        })
        .then(() => {
          dispatch(setFetchStatusQuests(FetchStatus.Success));
@@ -40,11 +41,8 @@ export const fetchQuest = function( id: number) :ThunkActionResult {
           return response.json();
         }
       })
-      .then((result) => {
-        dispatch(getSelectedQuest(result));
-      })
-      .then(() => {
-        dispatch(setFetchStatusDetailedQuest(FetchStatus.Success));
+      .then((data) => {
+        dispatch(getSelectedQuest(data));
       })
       .catch(() => dispatch(setFetchStatusDetailedQuest(FetchStatus.Error)));
   }
@@ -57,8 +55,8 @@ export const postOrder = function(data: IPostData) :ThunkActionResult {
 
     await fetch(BaseUrl.Post, settingsObject)
       .then((response) => response.json())
-      .then((data) => {
-        if (data === 201) {
+      .then((status) => {
+        if (status === RESPONSE_POST_SUCCESS) {
           dispatch(setPostOrderStatus(FetchStatus.Success));
         }
       })

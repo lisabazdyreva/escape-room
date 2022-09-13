@@ -1,15 +1,18 @@
 import * as S from './quest-item.styled';
+
 import { ReactComponent as IconPerson } from '../../../../assets/img/icon-person.svg';
 import { ReactComponent as IconPuzzle } from '../../../../assets/img/icon-puzzle.svg';
+
+import { AppRoute } from '../../../../const';
 import { IQuest } from '../../../../types/types';
 
 import { getAltText, getQuestLevelText, getPeopleCountText } from '../../../../utils/utils';
 
-import { AppRoute } from '../../../../const';
 
 interface QuestItemProps {
   quest: IQuest,
 }
+
 
 const QuestItem = ({quest}: QuestItemProps) => {
   const {id, title, previewImg, level, peopleCount} = quest;
