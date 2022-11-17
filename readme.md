@@ -32,8 +32,9 @@ Time spent: ~25 hours.
 ## Demo (without server):
 
 [Go to Escape room >>](https://escape-room-lisabazdyreva.vercel.app/)
+Please, run a server locally.
 
-## How to run locally (with server):
+## How to run locally:
 
 - Clone repository:
 ```bash
